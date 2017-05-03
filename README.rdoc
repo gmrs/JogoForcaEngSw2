@@ -9,16 +9,16 @@ Pontuação:
 
 - cada palavra acertada vale 100 pontos
 - cada frase acertada vale 200 pontos
-
-- palavras e frases sao sorteadas
-
-- pode escolher se quer jogar soh com frase ou soh com palavras
-
 - na palavra q ele errar cada letra acertada vale 20 pontos
 
-- cada palavra ou frase tem um categoria
 
-- precisa ter um rankeamento
+palavras e frases sao sorteadas
+
+pode escolher se quer jogar soh com frase ou soh com palavras
+
+cada palavra ou frase tem um categoria
+
+precisa ter um rankeamento
 
 
 == Dúvidas respondidas:
