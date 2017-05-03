@@ -1,0 +1,35 @@
+﻿== README
+
+== Jogo de forca.
+
+Nao vai ser o convencional, vai ser numa seq de palavras
+o usuario joga ateh se enforcar, desta forma vai adquirir pontuacoes.
+
+Pontuação:
+
+- cada palavra acertada vale 100 pontos
+- cada frase acertada vale 200 pontos
+
+- palavras e frases sao sorteadas
+
+- pode escolher se quer jogar soh com frase ou soh com palavras
+
+- na palavra q ele errar cada letra acertada vale 20 pontos
+
+- cada palavra ou frase tem um categoria
+
+- precisa ter um rankeamento
+
+
+== Dúvidas respondidas:
+
+- Na ultima joga (se enforcou) 20 pontos por letras acertadas ou letras unicas? LETRA DESCOBERTA AA=40
+
+- Se numa jogada acertou uma frase de 4 palavras quantos pontos ele ganha? 200 pela frase inteira ou 200+(4x100)=600? Soh 200
+
+- Se jogando com todas as categorias, mostra na tela qual a categoria da palavra atual? MOSTRA
+
+- as nao palavras podem se repetir? tem um banco razoavel 20 palavras, primeiras 10 nao repetir pelo menos
+
+
+
