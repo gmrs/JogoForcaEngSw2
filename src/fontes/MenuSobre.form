@@ -32,7 +32,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel2" pref="218" max="32767" attributes="0"/>
+              <Component id="jPanel2" pref="232" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -170,17 +170,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="- Darlan"/>
+                <Property name="text" type="java.lang.String" value="- Darlan Cardoso Bastos"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="- Guilherme"/>
+                <Property name="text" type="java.lang.String" value="- Guilherme Moraes"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="- Gustavo"/>
+                <Property name="text" type="java.lang.String" value="- Gustavo Teixeira dos Santos "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">

@@ -55,11 +55,11 @@ public class MenuSobre extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Desenvolvido por:");
 
-        jLabel5.setText("- Darlan");
+        jLabel5.setText("- Darlan Cardoso Bastos");
 
-        jLabel6.setText("- Guilherme");
+        jLabel6.setText("- Guilherme Moraes");
 
-        jLabel7.setText("- Gustavo");
+        jLabel7.setText("- Gustavo Teixeira dos Santos ");
 
         jButton1.setText("Sair");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +150,7 @@ public class MenuSobre extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

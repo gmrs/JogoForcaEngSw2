@@ -30,9 +30,8 @@ public class MenuAjuda extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600, 470));
-        setPreferredSize(new java.awt.Dimension(600, 470));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(600, 570));
+        setPreferredSize(new java.awt.Dimension(600, 570));
         setType(java.awt.Window.Type.POPUP);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -43,26 +42,23 @@ public class MenuAjuda extends javax.swing.JFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("*** AJUDA ***\n\nTeste ajuda.\n\n--- Power Ups ---\nTeste ajuda.\n\n--- Ranking ---\nTeste ajuda.\n");
+        jTextArea1.setText("*** AJUDA ***\n\nBem vindo ao jogo da forca.\n\nEste jogo foi desenvolvido como atividade da disciplina Engengaria de\nSoftware 2 | Ciências da Computação | Ulbra (Gravataí).\n\nO objetivo é praticar SCRUM(método ágil) como desenvolvimento.\n\n--- Regras ---\n-> Cada Palavra ou Frase tem uma categoria.\n-> Palavras e Frases são sorteadas\n-> O jogador pode escolher se quer jogar somente com Palavras ou Frases.\n\n--- PowerUps ---\nO jogador pode, ao longo da partida, ganhar ou perder PowerUps (itens que\noferecem ao jogador alguma vantagem). Aproveite bem!\nPara GANHAR PowerUps:\n-> EXIBIR LETRA: Exibe uma letra da Palavra ou Frase sorteada.\n   Como adquirir: Ao completar uma rodada.\n-> ULTIMA CHANCE: Após perder uma partida, concede uma ultima chance.\n   Como adquirir: Ao completar uma rodada antes de 20 segundos.\n-> VIDA: Após perder uma partida, pode continuar jogando.\n   Como adiquirir: Ao completar uma rodada sem errar nenhuma letra.\n\n--- Pontuação ---\n-> Cada Palavra acertada vale 100 pontos.\n-> Cada Frase acertada vale 200 pontos.\n-> Na Palavra que errar, cada letra acertada vale 20 pontos.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
+                .addGap(0, 2, Short.MAX_VALUE)
                 .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addComponent(jTextArea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(613, 504));
+        setSize(new java.awt.Dimension(616, 609));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -2,6 +2,7 @@ package fontes;
 
 import javafx.scene.control.Alert;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -241,8 +242,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJogarActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldNome.getText().isEmpty() == true) System.out.println("Nome Vazio.");
-        else if(jRadioButtonFrase.isSelected()==false && jRadioButtonPalavra.isSelected()==false) System.out.println("Selecione uma opção.");
+        if(jTextFieldNome.getText().isEmpty() == true) JOptionPane.showMessageDialog(null, "Você não informou seu nome, favor inserir seu nome antes de iniciar o jogo.");
+        else if(jRadioButtonFrase.isSelected()==false && jRadioButtonPalavra.isSelected()==false) JOptionPane.showMessageDialog(null, "Você não escolheu o modo de jogo, favor escolher o modo de jogo antes de iniciar o jogo.");
             else{
                 TelaJogo jogo = new TelaJogo(jTextFieldNome.getText(), modoJogo);
                 jogo.setVisible(true);
