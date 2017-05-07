@@ -1,0 +1,51 @@
+create table ranking
+(
+	nome varchar(70), datahora datetime, pontuacao bigint,
+	constraint uk_ranking unique (nome, datahora)
+);
+
+insert into ranking (nome, datahora, pontuacao) values ('Darlan', '2017-05-05 23:15:47',400);
+insert into ranking (nome, datahora, pontuacao) values ('Guilherme', '2017-05-05 23:15:47',400);
+insert into ranking (nome, datahora, pontuacao) values ('Gustavo', '2017-05-05 23:15:47',400);
+
+create table palavra
+(
+	palavra varchar(170), tipo char(1), categoria varchar(70), letras int,
+	constraint uk_palavra unique (palavra)
+);
+
+insert into palavra (palavra, tipo, categoria, letras) values ('São Paulo', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Rio de Janeiro', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Brasília', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Salvador', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Fortaleza', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Belo Horizonte', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Manaus', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Curitiba', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Recife', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Porto Alegre', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Goiânia', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Belém', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Guarulhos', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Campinas', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('São Luís', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('São Gonçalo', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Maceió', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Duque de Caxias', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Natal', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Campo Grande', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Teresina', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('São Bernardo do Campo', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('João Pessoa', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Nova Iguaçu', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Santo André', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Osasco', 'P', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('São José dos Campos', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Ribeirão Preto', 'F', 'Municipios do Brasil', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Jaboatão dos Guararapes', 'F', 'Municipios do Brasil', 0);
+
+
+update palavra set letras = length(replace(palavra,' ',''));
+
+
+
