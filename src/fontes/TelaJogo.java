@@ -683,10 +683,10 @@ public class TelaJogo extends javax.swing.JFrame {
         jPanelJogo.setLayout(jPanelJogoLayout);
         jPanelJogoLayout.setHorizontalGroup(
             jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelJogoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelJogoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
         jPanelJogoLayout.setVerticalGroup(
             jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -960,9 +960,6 @@ public class TelaJogo extends javax.swing.JFrame {
         if(getnTentativas() == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca5.png"))); // NOI18N
         if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca6.png"))); // NOI18N
         if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca7.png"))); // NOI18N
-        if(getnTentativas() == -2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca8.png"))); // NOI18N
-        if(getnTentativas() == -3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca9.png"))); // NOI18N
-        if(getnTentativas() == -4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/perdi.png"))); // NOI18N
     }//GEN-LAST:event_jButtonTesteAnimacao2ActionPerformed
 
     
