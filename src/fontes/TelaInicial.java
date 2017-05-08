@@ -1,8 +1,19 @@
 package fontes;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
+import javax.sql.rowset.CachedRowSet;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -21,9 +32,44 @@ public class TelaInicial extends javax.swing.JFrame {
     
     /**
      * Creates new form TelaInicial
-     */
+     */ 
     public TelaInicial() {
         initComponents();
+        
+        // Tabela de ranking: jTable1
+        jTable1.setEnabled(false);
+        try {
+            
+            CachedRowSet ranking = DatabaseRanking.GetRanking();
+            FillTable(jTable1, ranking);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    public void FillTable(JTable table, CachedRowSet rs)
+    {
+        try
+        {
+            while(table.getRowCount() > 0) 
+            {
+                ((DefaultTableModel) table.getModel()).removeRow(0);
+            }
+            int columns = rs.getMetaData().getColumnCount();
+            while(rs.next())
+            {  
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {  
+                    row[i - 1] = rs.getObject(i);
+                }
+                ((DefaultTableModel) table.getModel()).insertRow(rs.getRow()-1,row);
+            }
+        }
+        catch(Exception ex9)
+        {
+        }
     }
 
     /**
@@ -37,6 +83,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelRanking = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabelImgForca = new javax.swing.JLabel();
         jLabelInfNome = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
@@ -62,15 +110,53 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanelRanking.setBackground(new java.awt.Color(204, 204, 204));
         jPanelRanking.setBorder(javax.swing.BorderFactory.createTitledBorder("Ranking"));
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Jogador", "Data", "Pontuação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jTable1ComponentAdded(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanelRankingLayout = new javax.swing.GroupLayout(jPanelRanking);
         jPanelRanking.setLayout(jPanelRankingLayout);
         jPanelRankingLayout.setHorizontalGroup(
             jPanelRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 377, Short.MAX_VALUE)
+            .addGroup(jPanelRankingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelRankingLayout.setVerticalGroup(
             jPanelRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanelRankingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabelImgForca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/forca.jpg"))); // NOI18N
@@ -90,7 +176,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonJogar.setBorder(null);
         jButtonJogar.setBorderPainted(false);
         jButtonJogar.setContentAreaFilled(false);
-        jButtonJogar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonJogar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonJogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonJogarActionPerformed(evt);
@@ -169,7 +255,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabelImgForca)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -250,6 +336,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 dispose();
             }
     }//GEN-LAST:event_jButtonJogarActionPerformed
+
+    private void jTable1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTable1ComponentAdded
+    }//GEN-LAST:event_jTable1ComponentAdded
     
     /**
      * @param args the command line arguments
@@ -299,7 +388,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRanking;
     private javax.swing.JRadioButton jRadioButtonFrase;
     private javax.swing.JRadioButton jRadioButtonPalavra;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
 }
