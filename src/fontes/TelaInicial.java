@@ -1,8 +1,18 @@
 package fontes;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
+import javax.sql.rowset.CachedRowSet;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
 /**
@@ -22,10 +32,44 @@ public class TelaInicial extends javax.swing.JFrame {
     
     /**
      * Creates new form TelaInicial
-     */
+     */ 
     public TelaInicial() {
         initComponents();
-        //jTable1.
+        
+        // Tabela de ranking: jTable1
+        jTable1.setEnabled(false);
+        try {
+            
+            CachedRowSet ranking = DatabaseRanking.GetRanking();
+            FillTable(jTable1, ranking);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    public void FillTable(JTable table, CachedRowSet rs)
+    {
+        try
+        {
+            while(table.getRowCount() > 0) 
+            {
+                ((DefaultTableModel) table.getModel()).removeRow(0);
+            }
+            int columns = rs.getMetaData().getColumnCount();
+            while(rs.next())
+            {  
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {  
+                    row[i - 1] = rs.getObject(i);
+                }
+                ((DefaultTableModel) table.getModel()).insertRow(rs.getRow()-1,row);
+            }
+        }
+        catch(Exception ex9)
+        {
+        }
     }
 
     /**
@@ -68,6 +112,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},

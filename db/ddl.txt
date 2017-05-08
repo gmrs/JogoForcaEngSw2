@@ -4,6 +4,7 @@ create table ranking
 	constraint uk_ranking unique (nome, datahora)
 );
 
+delete from ranking;
 insert into ranking (nome, datahora, pontuacao) values ('Darlan', '2017-05-05 23:15:47',400);
 insert into ranking (nome, datahora, pontuacao) values ('Guilherme', '2017-05-05 23:15:47',400);
 insert into ranking (nome, datahora, pontuacao) values ('Gustavo', '2017-05-05 23:15:47',400);
@@ -14,6 +15,7 @@ create table palavra
 	constraint uk_palavra unique (palavra)
 );
 
+delete from palavra;
 insert into palavra (palavra, tipo, categoria, letras) values ('São Paulo', 'F', 'Municipios do Brasil', 0);
 insert into palavra (palavra, tipo, categoria, letras) values ('Rio de Janeiro', 'F', 'Municipios do Brasil', 0);
 insert into palavra (palavra, tipo, categoria, letras) values ('Brasília', 'P', 'Municipios do Brasil', 0);
@@ -43,9 +45,38 @@ insert into palavra (palavra, tipo, categoria, letras) values ('Osasco', 'P', 'M
 insert into palavra (palavra, tipo, categoria, letras) values ('São José dos Campos', 'F', 'Municipios do Brasil', 0);
 insert into palavra (palavra, tipo, categoria, letras) values ('Ribeirão Preto', 'F', 'Municipios do Brasil', 0);
 insert into palavra (palavra, tipo, categoria, letras) values ('Jaboatão dos Guararapes', 'F', 'Municipios do Brasil', 0);
-
+insert into palavra (palavra, tipo, categoria, letras) values ('Zaragoza', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Valencia', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Santa Cruz', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Sevilla', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Shakhtar Donetsk', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Santos', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Real Madrid', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Roma', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Portuguesa', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Paysandu', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Novo Hamburgo', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Newcastle', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Milan', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Manchester United', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Liverpool', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Luverdense', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Juventus', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Internacional', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Grêmio', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Genoa', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Flamengo', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Figueirense', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Corinthians', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Cruzeiro', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Borussia Dortmund', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Botafogo', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Benfica', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Brasil de Pelotas', 'F', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Arsenal', 'P', 'Times de futebol', 0);
+insert into palavra (palavra, tipo, categoria, letras) values ('Athletic Bilbao', 'F', 'Times de futebol', 0);
 
 update palavra set letras = length(replace(palavra,' ',''));
-
+update palavra set palavra=upper(palavra);
 
 

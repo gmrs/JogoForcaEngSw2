@@ -10,20 +10,11 @@ import com.sun.rowset.CachedRowSetImpl;
 
 public class DatabaseRanking
 {
-    public static void main(String[] args) throws SQLException
-    {
-        CachedRowSet teste = GetRanking();
-        while (teste.next())
-        {
-           System.out.println(teste.getString("nome")); 
-        }
-    }
-    
     public static CachedRowSet GetRanking() throws SQLException
     {
         Database db = new Database();
         CachedRowSet crs = new CachedRowSetImpl();
-        String sql = "SELECT nome, datahora, pontuacao FROM ranking";
+        String sql = "SELECT nome, datahora, pontuacao FROM ranking ORDER BY pontuacao DESC LIMIT 10";
         try
         {
             Connection conn = db.c;
@@ -31,10 +22,6 @@ public class DatabaseRanking
             ResultSet rs    = stmt.executeQuery(sql);
             crs.populate(rs);
             db.Desconectar();
-            //while (crs.next())
-            //{
-            //   System.out.println(crs.getString("nome")); 
-            //}
         }
         catch (SQLException e)
         {
