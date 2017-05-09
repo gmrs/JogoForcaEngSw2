@@ -93,14 +93,17 @@ public class TelaJogo extends javax.swing.JFrame {
         jLabelTempo2 = new javax.swing.JLabel();
         jLabelTentativasRestantes = new javax.swing.JLabel();
         jLabelTentativas = new javax.swing.JLabel();
-        jButtonTesteAnimacao = new javax.swing.JButton();
-        jButtonTesteAnimacao1 = new javax.swing.JButton();
-        jButtonTesteAnimacao2 = new javax.swing.JButton();
         jPanelPalavra = new javax.swing.JPanel();
         jLabelCategoria = new javax.swing.JLabel();
         jLabelPalavraFrase = new javax.swing.JLabel();
         jPanelJogo = new javax.swing.JPanel();
         jLabelAnimacao = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButtonTesteAnimacao = new javax.swing.JButton();
+        jButtonTesteAnimacao1 = new javax.swing.JButton();
+        jButtonTesteAnimacao2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonTesteAnimacao3 = new javax.swing.JButton();
         jMenuBarMenuPrincipal = new javax.swing.JMenuBar();
         jMenuInf = new javax.swing.JMenu();
         jMenuItemAjuda = new javax.swing.JMenuItem();
@@ -536,27 +539,6 @@ public class TelaJogo extends javax.swing.JFrame {
         jLabelTentativas.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelTentativas.setText("Tentativas restantes: ");
 
-        jButtonTesteAnimacao.setText(String.valueOf(nTentativas));
-        jButtonTesteAnimacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacaoActionPerformed(evt);
-            }
-        });
-
-        jButtonTesteAnimacao1.setText(String.valueOf(nTentativas));
-        jButtonTesteAnimacao1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao1ActionPerformed(evt);
-            }
-        });
-
-        jButtonTesteAnimacao2.setText(String.valueOf(nTentativas));
-        jButtonTesteAnimacao2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelJogadorLayout = new javax.swing.GroupLayout(jPanelJogador);
         jPanelJogador.setLayout(jPanelJogadorLayout);
         jPanelJogadorLayout.setHorizontalGroup(
@@ -566,13 +548,7 @@ public class TelaJogo extends javax.swing.JFrame {
                     .addGroup(jPanelJogadorLayout.createSequentialGroup()
                         .addComponent(jLabelTentativas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelTentativasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonTesteAnimacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonTesteAnimacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonTesteAnimacao2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelTentativasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelJogadorLayout.createSequentialGroup()
                         .addComponent(jLabelModo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -615,10 +591,7 @@ public class TelaJogo extends javax.swing.JFrame {
                     .addGroup(jPanelJogadorLayout.createSequentialGroup()
                         .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelTentativas)
-                            .addComponent(jLabelTentativasRestantes)
-                            .addComponent(jButtonTesteAnimacao)
-                            .addComponent(jButtonTesteAnimacao1)
-                            .addComponent(jButtonTesteAnimacao2))
+                            .addComponent(jLabelTentativasRestantes))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelTempo)
@@ -627,7 +600,7 @@ public class TelaJogo extends javax.swing.JFrame {
                     .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabelPontuacao2)
                         .addComponent(jLabelPontuacao, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanelPalavra.setBackground(new java.awt.Color(204, 204, 204));
@@ -657,7 +630,7 @@ public class TelaJogo extends javax.swing.JFrame {
             .addGroup(jPanelPalavraLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabelCategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLabelPalavraFrase)
                 .addContainerGap())
         );
@@ -679,18 +652,90 @@ public class TelaJogo extends javax.swing.JFrame {
         if(nTentativas == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
         if(nTentativas == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
 
+        jButtonTesteAnimacao.setText("1");
+        jButtonTesteAnimacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTesteAnimacaoActionPerformed(evt);
+            }
+        });
+
+        jButtonTesteAnimacao1.setText("2");
+        jButtonTesteAnimacao1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTesteAnimacao1ActionPerformed(evt);
+            }
+        });
+
+        jButtonTesteAnimacao2.setText("3");
+        jButtonTesteAnimacao2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTesteAnimacao2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jLabel1.setText("Teste de animação");
+
+        jButtonTesteAnimacao3.setText("Zerar");
+        jButtonTesteAnimacao3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTesteAnimacao3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButtonTesteAnimacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonTesteAnimacao1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonTesteAnimacao2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonTesteAnimacao3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonTesteAnimacao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonTesteAnimacao1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonTesteAnimacao2)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonTesteAnimacao3)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanelJogoLayout = new javax.swing.GroupLayout(jPanelJogo);
         jPanelJogo.setLayout(jPanelJogoLayout);
         jPanelJogoLayout.setHorizontalGroup(
             jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelJogoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+                .addGap(27, 27, 27)
+                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelJogoLayout.setVerticalGroup(
             jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelJogoLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
+            .addGroup(jPanelJogoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenuBarMenuPrincipal.setName(""); // NOI18N
@@ -746,14 +791,14 @@ public class TelaJogo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelPowerUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelJogador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jPanelJogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanelPalavra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTeclado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -913,28 +958,33 @@ public class TelaJogo extends javax.swing.JFrame {
         k.setEnabled(false);
     }//GEN-LAST:event_kActionPerformed
 
-    // CÓDIGO INSERIDO PARA TESTE, ELIMINAR APÓS TESTAR.
-    private void jButtonTesteAnimacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacaoActionPerformed
+    private void jButtonTesteAnimacao3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao3ActionPerformed
+        // TODO add your handling code here:
+        setnTentativas(6);
+        jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
+    }//GEN-LAST:event_jButtonTesteAnimacao3ActionPerformed
+
+    private void jButtonTesteAnimacao2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao2ActionPerformed
         // TODO add your handling code here:
         setnTentativas(getnTentativas() - 1);
         jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
-        jButtonTesteAnimacao.setText(String.valueOf(getnTentativas()));
+        //jButtonTesteAnimacao2.setText("3");
         //System.out.println(nTentativas);
-        if(getnTentativas() == 5) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa1.png"))); // NOI18N
-        if(getnTentativas() == 4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa2.png"))); // NOI18N
-        if(getnTentativas() == 3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa3.png"))); // NOI18N
-        if(getnTentativas() == 2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa4.png"))); // NOI18N
-        if(getnTentativas() == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
-        if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
-        if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
-    }//GEN-LAST:event_jButtonTesteAnimacaoActionPerformed
+        if(getnTentativas() == 5) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca1.png"))); // NOI18N
+        if(getnTentativas() == 4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca2.png"))); // NOI18N
+        if(getnTentativas() == 3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca3.png"))); // NOI18N
+        if(getnTentativas() == 2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca4.png"))); // NOI18N
+        if(getnTentativas() == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca5.png"))); // NOI18N
+        if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca6.png"))); // NOI18N
+        if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca7.png"))); // NOI18N
+    }//GEN-LAST:event_jButtonTesteAnimacao2ActionPerformed
 
     private void jButtonTesteAnimacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao1ActionPerformed
         // TODO add your handling code here:
-                // TODO add your handling code here:
+        // TODO add your handling code here:
         setnTentativas(getnTentativas() - 1);
         jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
-        jButtonTesteAnimacao.setText(String.valueOf(getnTentativas()));
+        //jButtonTesteAnimacao1.setText("2");
         //System.out.println(nTentativas);
         if(getnTentativas() == 5) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao2/forca_01.png"))); // NOI18N
         if(getnTentativas() == 4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao2/forca_02.png"))); // NOI18N
@@ -947,20 +997,21 @@ public class TelaJogo extends javax.swing.JFrame {
         if(getnTentativas() == -3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao2/forca_09.png"))); // NOI18N
     }//GEN-LAST:event_jButtonTesteAnimacao1ActionPerformed
 
-    private void jButtonTesteAnimacao2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao2ActionPerformed
+    // CÓDIGO INSERIDO PARA TESTE, ELIMINAR APÓS TESTAR.
+    private void jButtonTesteAnimacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacaoActionPerformed
         // TODO add your handling code here:
         setnTentativas(getnTentativas() - 1);
         jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
-        jButtonTesteAnimacao.setText(String.valueOf(getnTentativas()));
+        //jButtonTesteAnimacao.setText("1");
         //System.out.println(nTentativas);
-        if(getnTentativas() == 5) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca1.png"))); // NOI18N
-        if(getnTentativas() == 4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca2.png"))); // NOI18N
-        if(getnTentativas() == 3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca3.png"))); // NOI18N
-        if(getnTentativas() == 2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca4.png"))); // NOI18N
-        if(getnTentativas() == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca5.png"))); // NOI18N
-        if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca6.png"))); // NOI18N
-        if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/animacao3/forca7.png"))); // NOI18N
-    }//GEN-LAST:event_jButtonTesteAnimacao2ActionPerformed
+        if(getnTentativas() == 5) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa1.png"))); // NOI18N
+        if(getnTentativas() == 4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa2.png"))); // NOI18N
+        if(getnTentativas() == 3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa3.png"))); // NOI18N
+        if(getnTentativas() == 2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa4.png"))); // NOI18N
+        if(getnTentativas() == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
+        if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
+        if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
+    }//GEN-LAST:event_jButtonTesteAnimacaoActionPerformed
 
     
 
@@ -978,6 +1029,8 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTesteAnimacao;
     private javax.swing.JButton jButtonTesteAnimacao1;
     private javax.swing.JButton jButtonTesteAnimacao2;
+    private javax.swing.JButton jButtonTesteAnimacao3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAnimacao;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelJogador;
@@ -996,6 +1049,7 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAjuda;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelJogador;
     private javax.swing.JPanel jPanelJogo;
     private javax.swing.JPanel jPanelPalavra;
