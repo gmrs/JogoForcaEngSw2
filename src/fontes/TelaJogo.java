@@ -5,6 +5,12 @@
  */
 package fontes;
 
+import static java.lang.Thread.sleep;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Guilherme
@@ -13,9 +19,11 @@ public class TelaJogo extends javax.swing.JFrame {
 
     private String letra;
     private String nomeJogador;
+    private String palavraSorteada="T";
     private int formaJogo;
     private int nTentativas = 6;
     private int pontos;
+    
     
     /**
      * Creates new form TelaJogo
@@ -31,6 +39,7 @@ public class TelaJogo extends javax.swing.JFrame {
     }
 
 
+    ArrayList tentativas = new ArrayList();
     /**
     * @return the nTentativas
     */
@@ -44,6 +53,68 @@ public class TelaJogo extends javax.swing.JFrame {
     public void setnTentativas(int nTentativas) {
         this.nTentativas = nTentativas;
     }
+    
+    public void confere(){
+        if(!partida.fimJogo(nTentativas, 2)){ //MUDAR
+            if(tentativas.contains(letra)){
+            }else{                                      
+                tentativas.add(letra);  // Armazena a letra nova na lista de tentativas.
+                if(palavraSorteada.contains(letra)){
+                    // Acertou
+                    // EXIBE LETRA
+                    if(partida.fimRodada(nTentativas, 0) == true) //MUDAR
+                    {
+                        try {
+                            sleep(2000);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
+                        JOptionPane.showMessageDialog(null, "Parabéns! Você acertou!\n\n Sua pontuação é: " + pontuacaoTotal + ".\n\nClique em OK para continuar");
+                    }
+                }
+                else{
+                    nTentativas = nTentativas - 1;    //vai adicionando o numero de tentativas; se errar, adiciona o desenho
+                    jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
+                    switch(nTentativas){
+                    case(5):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa1.png"))); // NOI18N
+                        break;
+                    }
+                    case(4):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa2.png"))); // NOI18N
+                        break;
+                    }
+                    case(3):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa3.png"))); // NOI18N
+                        break;
+                    }
+                    case(2):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa4.png"))); // NOI18N
+                        break;
+                    }
+                    case(1):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
+                        break;
+                    }
+                    case(0):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
+                        break;
+                    }
+                    case(-1):{
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
+                        // IMPRIMIR PALAVRA;
+                        partida.fimJogo(nTentativas, 2);
+                        break;
+                }
+            }
+        }
+    }
+}
+            
+
+}
+    
     
     // NOVA PARTIDA
     ControlePartida partida = new ControlePartida();
@@ -141,7 +212,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         i.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         i.setText("I");
-        i.setEnabled(false);
         i.setFocusPainted(false);
         i.setPreferredSize(new java.awt.Dimension(39, 23));
         i.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +222,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         e.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         e.setText("E");
-        e.setEnabled(false);
         e.setFocusPainted(false);
         e.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +231,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         u.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         u.setText("U");
-        u.setEnabled(false);
         u.setFocusPainted(false);
         u.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +240,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         f.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         f.setText("F");
-        f.setEnabled(false);
         f.setFocusPainted(false);
         f.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +249,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         j.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         j.setText("J");
-        j.setEnabled(false);
         j.setFocusPainted(false);
         j.setPreferredSize(new java.awt.Dimension(39, 23));
         j.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +259,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         p.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         p.setText("P");
-        p.setEnabled(false);
         p.setFocusPainted(false);
         p.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +268,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         w.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         w.setText("W");
-        w.setEnabled(false);
         w.setFocusPainted(false);
         w.setPreferredSize(new java.awt.Dimension(39, 23));
         w.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +278,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         x.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         x.setText("X");
-        x.setEnabled(false);
         x.setFocusPainted(false);
         x.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,7 +287,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         v.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         v.setText("V");
-        v.setEnabled(false);
         v.setFocusPainted(false);
         v.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +296,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         d.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         d.setText("D");
-        d.setEnabled(false);
         d.setFocusPainted(false);
         d.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +305,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         n.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         n.setText("N");
-        n.setEnabled(false);
         n.setFocusPainted(false);
         n.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +314,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         o.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         o.setText("O");
-        o.setEnabled(false);
         o.setFocusPainted(false);
         o.setPreferredSize(new java.awt.Dimension(39, 23));
         o.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +324,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         z.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         z.setText("Z");
-        z.setEnabled(false);
         z.setFocusPainted(false);
         z.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +333,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         m.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         m.setText("M");
-        m.setEnabled(false);
         m.setFocusPainted(false);
         m.setPreferredSize(new java.awt.Dimension(39, 23));
         m.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +343,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         h.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         h.setText("H");
-        h.setEnabled(false);
         h.setFocusPainted(false);
         h.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +352,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         s.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         s.setText("S");
-        s.setEnabled(false);
         s.setFocusPainted(false);
         s.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +361,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         c.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         c.setText("C");
-        c.setEnabled(false);
         c.setFocusPainted(false);
         c.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,7 +370,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         b.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         b.setText("B");
-        b.setEnabled(false);
         b.setFocusPainted(false);
         b.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,7 +379,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         r.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         r.setText("R");
-        r.setEnabled(false);
         r.setFocusPainted(false);
         r.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +388,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         g.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         g.setText("G");
-        g.setEnabled(false);
         g.setFocusPainted(false);
         g.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -346,7 +397,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         y.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         y.setText("Y");
-        y.setEnabled(false);
         y.setFocusPainted(false);
         y.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,7 +406,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         a.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         a.setText("A");
-        a.setEnabled(false);
         a.setFocusPainted(false);
         a.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,7 +415,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         l.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         l.setText("L");
-        l.setEnabled(false);
         l.setFocusPainted(false);
         l.setPreferredSize(new java.awt.Dimension(39, 23));
         l.addActionListener(new java.awt.event.ActionListener() {
@@ -377,7 +425,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         t.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         t.setText("T");
-        t.setEnabled(false);
         t.setFocusPainted(false);
         t.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,7 +434,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         q.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         q.setText("Q");
-        q.setEnabled(false);
         q.setFocusPainted(false);
         q.setPreferredSize(new java.awt.Dimension(39, 23));
         q.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +444,6 @@ public class TelaJogo extends javax.swing.JFrame {
 
         k.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         k.setText("K");
-        k.setEnabled(false);
         k.setFocusPainted(false);
         k.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -990,131 +1035,157 @@ public class TelaJogo extends javax.swing.JFrame {
     private void iActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iActionPerformed
         letra = "I";
         i.setEnabled(false);
+        confere();
     }//GEN-LAST:event_iActionPerformed
 
     private void eActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eActionPerformed
         letra = "E";
         e.setEnabled(false);
+        confere();
     }//GEN-LAST:event_eActionPerformed
 
     private void uActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uActionPerformed
         letra = "U";
         u.setEnabled(false);
+        confere();
     }//GEN-LAST:event_uActionPerformed
 
     private void fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fActionPerformed
         letra = "F";
         f.setEnabled(false);
+        confere();
     }//GEN-LAST:event_fActionPerformed
 
     private void jActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionPerformed
         letra = "J";
         j.setEnabled(false);
+        confere();
     }//GEN-LAST:event_jActionPerformed
 
     private void pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pActionPerformed
         letra = "P";
         p.setEnabled(false);
+        confere();
     }//GEN-LAST:event_pActionPerformed
 
     private void wActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wActionPerformed
         letra = "W";
         w.setEnabled(false);
+        confere();
     }//GEN-LAST:event_wActionPerformed
 
     private void xActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xActionPerformed
         letra = "X";
         x.setEnabled(false);
+        confere();
     }//GEN-LAST:event_xActionPerformed
 
     private void vActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vActionPerformed
         letra = "V";
         v.setEnabled(false);
+        confere();
     }//GEN-LAST:event_vActionPerformed
 
     private void dActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dActionPerformed
         letra = "D";
         d.setEnabled(false);
+        confere();
     }//GEN-LAST:event_dActionPerformed
 
     private void nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nActionPerformed
         letra = "N";
         n.setEnabled(false);
+        confere();
     }//GEN-LAST:event_nActionPerformed
 
     private void oActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oActionPerformed
         letra = "O";
         o.setEnabled(false);
+        confere();
     }//GEN-LAST:event_oActionPerformed
 
     private void zActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zActionPerformed
         letra = "Z";
         z.setEnabled(false);
+        confere();
     }//GEN-LAST:event_zActionPerformed
 
     private void mActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionPerformed
         letra = "M";
         m.setEnabled(false);
+        confere();
     }//GEN-LAST:event_mActionPerformed
 
     private void hActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hActionPerformed
         letra = "H";
         h.setEnabled(false);
+        confere();
     }//GEN-LAST:event_hActionPerformed
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
         letra = "S";
         s.setEnabled(false);
+        confere();
     }//GEN-LAST:event_sActionPerformed
 
     private void cActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cActionPerformed
         letra = "C";
         c.setEnabled(false);
+        confere();
     }//GEN-LAST:event_cActionPerformed
 
     private void bActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActionPerformed
         letra = "B";
         b.setEnabled(false);
+        confere();
     }//GEN-LAST:event_bActionPerformed
 
     private void rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rActionPerformed
         letra = "R";
         r.setEnabled(false);
+        confere();
     }//GEN-LAST:event_rActionPerformed
 
     private void gActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gActionPerformed
         letra = "G";
         g.setEnabled(false);
+        confere();
     }//GEN-LAST:event_gActionPerformed
 
     private void yActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yActionPerformed
         letra = "Y";
         y.setEnabled(false);
+        confere();
     }//GEN-LAST:event_yActionPerformed
 
     private void aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aActionPerformed
         letra = "A";
         a.setEnabled(false);
+        confere();
     }//GEN-LAST:event_aActionPerformed
 
     private void lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lActionPerformed
         letra = "L";
         l.setEnabled(false);
+        confere();
     }//GEN-LAST:event_lActionPerformed
 
     private void tActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tActionPerformed
         letra = "T";
         t.setEnabled(false);
+        confere();
     }//GEN-LAST:event_tActionPerformed
 
     private void qActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qActionPerformed
         letra = "Q";
         q.setEnabled(false);
+        confere();
     }//GEN-LAST:event_qActionPerformed
 
     private void kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kActionPerformed
         letra = "K";
         k.setEnabled(false);
+        confere();
     }//GEN-LAST:event_kActionPerformed
 
     private void jButtonTesteAnimacao3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao3ActionPerformed
@@ -1139,6 +1210,22 @@ public class TelaJogo extends javax.swing.JFrame {
         if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
         if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
         if(getnTentativas() == -2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
+        if(partida.fimJogo(nTentativas, 2) == true) dispose();
+        
+        /*
+        if(partida.fimRodada(6, getnTentativas())==true){
+            try {
+                sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Parabéns, você acertou!\n\n");
+            TelaInicial inicio = new TelaInicial();
+            inicio.setVisible(true);
+            dispose();
+        
+        }
+*/
     }//GEN-LAST:event_jButtonTesteAnimacaoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
