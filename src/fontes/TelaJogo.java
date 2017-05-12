@@ -54,23 +54,58 @@ public class TelaJogo extends javax.swing.JFrame {
         this.nTentativas = nTentativas;
     }
     
+    public void novaRodada(){
+        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fundo.png"))); // NOI18N
+        setnTentativas(6);
+        
+        // ZERAR TEMPO;
+        // EXIBE NOVA PALAVRA
+        
+        a.setEnabled(true);
+        b.setEnabled(true);
+        c.setEnabled(true);
+        d.setEnabled(true);
+        e.setEnabled(true);
+        f.setEnabled(true);
+        g.setEnabled(true);
+        h.setEnabled(true);
+        i.setEnabled(true);
+        j.setEnabled(true);
+        l.setEnabled(true);
+        m.setEnabled(true);
+        n.setEnabled(true);
+        o.setEnabled(true);
+        p.setEnabled(true);
+        q.setEnabled(true);
+        r.setEnabled(true);
+        s.setEnabled(true);
+        t.setEnabled(true);
+        u.setEnabled(true);
+        v.setEnabled(true);
+        x.setEnabled(true);
+        z.setEnabled(true);
+    }
+    
     public void confere(){
         if(!partida.fimJogo(nTentativas, 2)){ //MUDAR
-            if(tentativas.contains(letra)){
-            }else{                                      
-                tentativas.add(letra);  // Armazena a letra nova na lista de tentativas.
+
                 if(palavraSorteada.contains(letra)){
                     // Acertou
                     // EXIBE LETRA
                     if(partida.fimRodada(nTentativas, 0) == true) //MUDAR
                     {
+                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
+                        if(formaJogo == 1) pontos = 100; // SE PALAVRA
+                        else pontos = 200;
+                        pontuacaoTotal = partida.atualizaPontuacao(pontos);
+                        jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
                         try {
                             sleep(2000);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
                         JOptionPane.showMessageDialog(null, "Parabéns! Você acertou!\n\n Sua pontuação é: " + pontuacaoTotal + ".\n\nClique em OK para continuar");
+                        novaRodada();
                     }
                 }
                 else{
@@ -103,13 +138,14 @@ public class TelaJogo extends javax.swing.JFrame {
                     }
                     case(-1):{
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
-                        // IMPRIMIR PALAVRA;
+                        // IMPRIMIR PALAVRA COMPLETA;
+                        // CALCULA PONTUAÇÃO
                         partida.fimJogo(nTentativas, 2);
+                        dispose();
                         break;
                 }
             }
         }
-    }
 }
             
 
