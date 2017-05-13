@@ -24,7 +24,7 @@ public class Database {
     {
         try
         {
-            if (this.c != null) {System.out.println("Desconectando...");this.c.close();}
+            if (this.c != null) {this.c.close();}
         }
         catch (SQLException ex)
         {
@@ -37,7 +37,6 @@ public class Database {
         {
             String url = "jdbc:sqlite:./db/forca.db";
             this.c = DriverManager.getConnection(url);
-            System.out.println("Conectado.");
         } catch (SQLException e)
         {
             System.out.println(e.getMessage());

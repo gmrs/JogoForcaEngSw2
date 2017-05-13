@@ -6,6 +6,7 @@
 package fontes;
 
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ public class TelaJogo extends javax.swing.JFrame {
 
     private String letra;
     private String nomeJogador;
-    private String palavraSorteada="T";
+    private Palavra palavraSorteada;
     private int formaJogo;
     private int nTentativas = 6;
     private int pontos;
@@ -54,7 +55,11 @@ public class TelaJogo extends javax.swing.JFrame {
         this.nTentativas = nTentativas;
     }
     
-    public void novaRodada(){
+    public void novaRodada() throws SQLException{
+        this.palavraSorteada = DatabasePalavra.Sortear(true);
+        jLabelPalavraFrase.setText(this.palavraSorteada.getPalavraCifrada());
+        jLabelPalavraFrase.repaint();
+
         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fundo.png"))); // NOI18N
         setnTentativas(6);
         
@@ -86,10 +91,10 @@ public class TelaJogo extends javax.swing.JFrame {
         z.setEnabled(true);
     }
     
-    public void confere(){
+    public void confere() throws SQLException{
         if(!partida.fimJogo(nTentativas, 2)){ //MUDAR
 
-                if(palavraSorteada.contains(letra)){
+                if(palavraSorteada.Contem(letra)){
                     // Acertou
                     // EXIBE LETRA
                     if(partida.fimRodada(nTentativas, 0) == true) //MUDAR
@@ -1069,159 +1074,263 @@ public class TelaJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void iActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iActionPerformed
-        letra = "I";
-        i.setEnabled(false);
-        confere();
+        try {
+            letra = "I";
+            i.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_iActionPerformed
 
     private void eActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eActionPerformed
-        letra = "E";
-        e.setEnabled(false);
-        confere();
+        try {
+            letra = "E";
+            e.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_eActionPerformed
 
     private void uActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uActionPerformed
-        letra = "U";
-        u.setEnabled(false);
-        confere();
+        try {
+            letra = "U";
+            u.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_uActionPerformed
 
     private void fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fActionPerformed
-        letra = "F";
-        f.setEnabled(false);
-        confere();
+        try {
+            letra = "F";
+            f.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_fActionPerformed
 
     private void jActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionPerformed
         letra = "J";
         j.setEnabled(false);
-        confere();
+        try {
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jActionPerformed
 
     private void pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pActionPerformed
         letra = "P";
         p.setEnabled(false);
-        confere();
+        try {
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_pActionPerformed
 
     private void wActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wActionPerformed
         letra = "W";
         w.setEnabled(false);
-        confere();
+        try {
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_wActionPerformed
 
     private void xActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xActionPerformed
-        letra = "X";
-        x.setEnabled(false);
-        confere();
+        try {
+            letra = "X";
+            x.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_xActionPerformed
 
     private void vActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vActionPerformed
-        letra = "V";
-        v.setEnabled(false);
-        confere();
+        try {
+            letra = "V";
+            v.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_vActionPerformed
 
     private void dActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dActionPerformed
-        letra = "D";
-        d.setEnabled(false);
-        confere();
+        try {
+            letra = "D";
+            d.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_dActionPerformed
 
     private void nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nActionPerformed
         letra = "N";
         n.setEnabled(false);
-        confere();
+        try {
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_nActionPerformed
 
     private void oActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oActionPerformed
-        letra = "O";
-        o.setEnabled(false);
-        confere();
+        try {
+            letra = "O";
+            o.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_oActionPerformed
 
     private void zActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zActionPerformed
-        letra = "Z";
-        z.setEnabled(false);
-        confere();
+        try {
+            letra = "Z";
+            z.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_zActionPerformed
 
     private void mActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionPerformed
-        letra = "M";
-        m.setEnabled(false);
-        confere();
+        try {
+            letra = "M";
+            m.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_mActionPerformed
 
     private void hActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hActionPerformed
-        letra = "H";
-        h.setEnabled(false);
-        confere();
+        try {
+            letra = "H";
+            h.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_hActionPerformed
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
-        letra = "S";
-        s.setEnabled(false);
-        confere();
+        try {
+            letra = "S";
+            s.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_sActionPerformed
 
     private void cActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cActionPerformed
-        letra = "C";
-        c.setEnabled(false);
-        confere();
+        try {
+            letra = "C";
+            c.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cActionPerformed
 
     private void bActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActionPerformed
-        letra = "B";
-        b.setEnabled(false);
-        confere();
+        try {
+            letra = "B";
+            b.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bActionPerformed
 
     private void rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rActionPerformed
-        letra = "R";
-        r.setEnabled(false);
-        confere();
+        try {
+            letra = "R";
+            r.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_rActionPerformed
 
     private void gActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gActionPerformed
-        letra = "G";
-        g.setEnabled(false);
-        confere();
+        try {
+            letra = "G";
+            g.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_gActionPerformed
 
     private void yActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yActionPerformed
-        letra = "Y";
-        y.setEnabled(false);
-        confere();
+        try {
+            letra = "Y";
+            y.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_yActionPerformed
 
     private void aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aActionPerformed
-        letra = "A";
-        a.setEnabled(false);
-        confere();
+        try {
+            letra = "A";
+            a.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_aActionPerformed
 
     private void lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lActionPerformed
-        letra = "L";
-        l.setEnabled(false);
-        confere();
+        try {
+            letra = "L";
+            l.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lActionPerformed
 
     private void tActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tActionPerformed
-        letra = "T";
-        t.setEnabled(false);
-        confere();
+        try {
+            letra = "T";
+            t.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_tActionPerformed
 
     private void qActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qActionPerformed
-        letra = "Q";
-        q.setEnabled(false);
-        confere();
+        try {
+            letra = "Q";
+            q.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_qActionPerformed
 
     private void kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kActionPerformed
-        letra = "K";
-        k.setEnabled(false);
-        confere();
+        try {
+            letra = "K";
+            k.setEnabled(false);
+            confere();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_kActionPerformed
 
     private void jButtonTesteAnimacao3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao3ActionPerformed
