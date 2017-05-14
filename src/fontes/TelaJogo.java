@@ -23,7 +23,9 @@ public class TelaJogo extends javax.swing.JFrame {
     private Palavra palavraSorteada;
     private int formaJogo;
     private int nTentativas = 6;
+    private int nLetras;
     private int pontos;
+    
     
     
     /**
@@ -65,6 +67,8 @@ public class TelaJogo extends javax.swing.JFrame {
         {
             this.palavraSorteada = DatabasePalavra.Sortear(true);
         }
+        nLetras = palavraSorteada.getCaracteresSemEspacos();
+        tentativas.clear();
         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavraCifrada());
         jLabelCategoria.setText(this.palavraSorteada.getCategoria());
         jLabelPalavraFrase.repaint();
@@ -101,12 +105,15 @@ public class TelaJogo extends javax.swing.JFrame {
     }
     
     public void confere() throws SQLException{
-        if(!partida.fimJogo(nTentativas, 2)){ //MUDAR
+        if(!partida.fimJogo(nTentativas, nLetras)){ //MUDAR
+            tentativas.add(letra);
 
                 if(palavraSorteada.Contem(letra)){
-                    // Acertou
-                    // EXIBE LETRA
-                    if(partida.fimRodada(nTentativas, 0) == true) //MUDAR
+                    // Acertou - EXIBE A LETRA
+                    jLabelPalavraFrase.setText(palavraSorteada.getLetraDescobreta(tentativas));
+                    nLetras = nLetras-palavraSorteada.getNumLetraDescoberta(letra);
+                    
+                    if(partida.fimRodada(nTentativas, nLetras) == true) //MUDAR
                     {
                         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
@@ -823,6 +830,7 @@ public class TelaJogo extends javax.swing.JFrame {
         jLabelCategoria.setText("Categoria: <variavel>");
 
         jLabelPalavraFrase.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabelPalavraFrase.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelPalavraFrase.setText("__ __ __ __ __");
 
         javax.swing.GroupLayout jPanelPalavraLayout = new javax.swing.GroupLayout(jPanelPalavra);
@@ -830,14 +838,12 @@ public class TelaJogo extends javax.swing.JFrame {
         jPanelPalavraLayout.setHorizontalGroup(
             jPanelPalavraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPalavraLayout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
-                .addGroup(jPanelPalavraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPalavraLayout.createSequentialGroup()
-                        .addComponent(jLabelCategoria)
-                        .addGap(319, 319, 319))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPalavraLayout.createSequentialGroup()
-                        .addComponent(jLabelPalavraFrase)
-                        .addGap(228, 228, 228))))
+                .addContainerGap(331, Short.MAX_VALUE)
+                .addComponent(jLabelCategoria)
+                .addGap(319, 319, 319))
+            .addGroup(jPanelPalavraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPalavraFrase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPalavraLayout.setVerticalGroup(
             jPanelPalavraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

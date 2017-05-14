@@ -5,6 +5,8 @@
  */
 package fontes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Or4cl3
@@ -19,7 +21,7 @@ public class Palavra
     }
 
     public String getPalavraCifrada() {
-        return palavra.replaceAll("[A-Z]", "?");
+        return palavra.replaceAll("[A-Z]", "_ ");
         //return palavra;
     }
         
@@ -53,6 +55,33 @@ public class Palavra
     
     public boolean Contem(String letra)
     {
-        return palavra.contains(palavra);
+        return palavra.contains(letra);
+    }
+    
+    public String getLetraDescobreta(ArrayList<String> letra){
+        String texto_temp="";
+        for (int n=1; n<=palavra.length(); n++){       //pega o tamanho da palavra para gerar os traços
+                if((letra.contains(palavra.substring(n-1, n))))
+                {
+                    texto_temp = texto_temp + palavra.substring(n-1, n); //revela a letra chutada
+                }else
+                {
+                    texto_temp = texto_temp + "_";
+                    //resta_um = true;
+                }
+                texto_temp = texto_temp + " ";
+            }
+        return texto_temp;
+    }
+    
+    public int getNumLetraDescoberta(String letra){
+        int cont=0;
+        for (int n=1; n<=palavra.length(); n++){       //pega o tamanho da palavra para gerar os traços
+                if((letra.contains(palavra.substring(n-1, n))))
+                {
+                    cont++;
+                }
+        }
+        return cont;
     }
 }
