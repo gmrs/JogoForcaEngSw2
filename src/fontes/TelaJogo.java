@@ -105,14 +105,13 @@ public class TelaJogo extends javax.swing.JFrame {
     }
     
     public void confere() throws SQLException{
-        if(!partida.fimJogo(nTentativas, nLetras)){ //MUDAR
+        if(!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos())){
             tentativas.add(letra);
 
                 if(palavraSorteada.Contem(letra)){
                     // Acertou - EXIBE A LETRA
                     jLabelPalavraFrase.setText(palavraSorteada.getLetraDescobreta(tentativas));
                     nLetras = nLetras-palavraSorteada.getNumLetraDescoberta(letra);
-                    
                     if(partida.fimRodada(nTentativas, nLetras) == true) //MUDAR
                     {
                         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
@@ -160,17 +159,18 @@ public class TelaJogo extends javax.swing.JFrame {
                     }
                     case(-1):{
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
-                        // IMPRIMIR PALAVRA COMPLETA;
-                        // CALCULA PONTUAÇÃO
-                        partida.fimJogo(nTentativas, 2);
+                        jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
+                        partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos());
                         dispose();
                         break;
-                }
-            }
+                    }
+                    
+                }  
         }
-}
-            
 
+        }
+            
+        
 }
     
     
@@ -246,17 +246,6 @@ public class TelaJogo extends javax.swing.JFrame {
         jLabelPalavraFrase = new javax.swing.JLabel();
         jPanelJogo = new javax.swing.JPanel();
         jLabelAnimacao = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jButtonTesteAnimacao = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jButtonTesteAnimacao3 = new javax.swing.JButton();
-        jButtonTesteAnimacao4 = new javax.swing.JButton();
-        jButtonTesteAnimacao5 = new javax.swing.JButton();
-        jButtonTesteAnimacao6 = new javax.swing.JButton();
-        jButtonTesteAnimacao7 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jButtonTesteAnimacao1 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jMenuBarMenuPrincipal = new javax.swing.JMenuBar();
         jMenuInf = new javax.swing.JMenu();
         jMenuItemAjuda = new javax.swing.JMenuItem();
@@ -872,129 +861,20 @@ public class TelaJogo extends javax.swing.JFrame {
         if(nTentativas == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
         if(nTentativas == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
 
-        jButtonTesteAnimacao.setText("1");
-        jButtonTesteAnimacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacaoActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel1.setText("Teste de animação");
-
-        jButtonTesteAnimacao3.setText("Zerar");
-        jButtonTesteAnimacao3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao3ActionPerformed(evt);
-            }
-        });
-
-        jButtonTesteAnimacao4.setText("Zerar");
-        jButtonTesteAnimacao4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao4ActionPerformed(evt);
-            }
-        });
-
-        jButtonTesteAnimacao5.setText("3");
-        jButtonTesteAnimacao5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao5ActionPerformed(evt);
-            }
-        });
-
-        jButtonTesteAnimacao6.setText("2");
-        jButtonTesteAnimacao6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao6ActionPerformed(evt);
-            }
-        });
-
-        jButtonTesteAnimacao7.setText("1");
-        jButtonTesteAnimacao7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao7ActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel8.setText("Teste powerup");
-
-        jButtonTesteAnimacao1.setText("pont");
-        jButtonTesteAnimacao1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTesteAnimacao1ActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel9.setText("Teste pontuação");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButtonTesteAnimacao7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonTesteAnimacao6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonTesteAnimacao5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonTesteAnimacao4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonTesteAnimacao3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonTesteAnimacao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonTesteAnimacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTesteAnimacao7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTesteAnimacao6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTesteAnimacao5)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonTesteAnimacao4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jButtonTesteAnimacao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTesteAnimacao3)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTesteAnimacao1)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanelJogoLayout = new javax.swing.GroupLayout(jPanelJogo);
         jPanelJogo.setLayout(jPanelJogoLayout);
         jPanelJogoLayout.setHorizontalGroup(
             jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelJogoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelJogoLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelJogoLayout.setVerticalGroup(
             jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelJogoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1349,46 +1229,6 @@ public class TelaJogo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_kActionPerformed
 
-    private void jButtonTesteAnimacao3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao3ActionPerformed
-        // TODO add your handling code here:
-        setnTentativas(6);
-        jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
-        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fundo.png")));
-    }//GEN-LAST:event_jButtonTesteAnimacao3ActionPerformed
-
-    // CÓDIGO INSERIDO PARA TESTE, ELIMINAR APÓS TESTAR.
-    private void jButtonTesteAnimacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacaoActionPerformed
-        // TODO add your handling code here:
-        setnTentativas(getnTentativas() - 1);
-        jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
-        //jButtonTesteAnimacao.setText("1");
-        //System.out.println(nTentativas);
-        if(getnTentativas() == 5) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa1.png"))); // NOI18N
-        if(getnTentativas() == 4) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa2.png"))); // NOI18N
-        if(getnTentativas() == 3) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa3.png"))); // NOI18N
-        if(getnTentativas() == 2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa4.png"))); // NOI18N
-        if(getnTentativas() == 1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
-        if(getnTentativas() == 0) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
-        if(getnTentativas() == -1) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
-        if(getnTentativas() == -2) jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
-        if(partida.fimJogo(nTentativas, 2) == true) dispose();
-        
-        /*
-        if(partida.fimRodada(6, getnTentativas())==true){
-            try {
-                sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(null, "Parabéns, você acertou!\n\n");
-            TelaInicial inicio = new TelaInicial();
-            inicio.setVisible(true);
-            dispose();
-        
-        }
-*/
-    }//GEN-LAST:event_jButtonTesteAnimacaoActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -1396,35 +1236,6 @@ public class TelaJogo extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonTesteAnimacao4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao4ActionPerformed
-        // TODO add your handling code here:
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_pb.png"))); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_pb.png"))); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_pb.png"))); // NOI18N
-    }//GEN-LAST:event_jButtonTesteAnimacao4ActionPerformed
-
-    private void jButtonTesteAnimacao5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao5ActionPerformed
-        // TODO add your handling code here:
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_color.jpg"))); // NOI18N
-    }//GEN-LAST:event_jButtonTesteAnimacao5ActionPerformed
-
-    private void jButtonTesteAnimacao6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao6ActionPerformed
-        // TODO add your handling code here:
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_color.png"))); // NOI18N
-    }//GEN-LAST:event_jButtonTesteAnimacao6ActionPerformed
-
-    private void jButtonTesteAnimacao7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao7ActionPerformed
-        // TODO add your handling code here:
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_color.png"))); // NOI18N
-    }//GEN-LAST:event_jButtonTesteAnimacao7ActionPerformed
-
-    private void jButtonTesteAnimacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteAnimacao1ActionPerformed
-        // TODO add your handling code here:
-        pontos = 200;
-        pontuacaoTotal = partida.atualizaPontuacao(pontos);
-        jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
-    }//GEN-LAST:event_jButtonTesteAnimacao1ActionPerformed
 
     
 
@@ -1442,22 +1253,12 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButtonTesteAnimacao;
-    private javax.swing.JButton jButtonTesteAnimacao1;
-    private javax.swing.JButton jButtonTesteAnimacao3;
-    private javax.swing.JButton jButtonTesteAnimacao4;
-    private javax.swing.JButton jButtonTesteAnimacao5;
-    private javax.swing.JButton jButtonTesteAnimacao6;
-    private javax.swing.JButton jButtonTesteAnimacao7;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAnimacao;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelJogador;
@@ -1476,7 +1277,6 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAjuda;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelJogador;
     private javax.swing.JPanel jPanelJogo;
     private javax.swing.JPanel jPanelPalavra;

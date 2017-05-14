@@ -40,7 +40,7 @@ public class ControlePartida {
         else return false;
     }
     
-    public boolean fimJogo(int nTentativas, int nLetras){
+    public boolean fimJogo(int nTentativas, int nLetras, int totalLetras){
         if((nTentativas < 0) && (nLetras > 0)){
             // VERIFICAR SE POSSUI POWERUP, SE SIM, FAZER MÉTODO PARA UTILIZAR.
             try {
@@ -48,6 +48,7 @@ public class ControlePartida {
             } catch (InterruptedException ex) {
                 Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
             }
+            pontuacao = pontuacao + ((totalLetras-nLetras)*20);
             JOptionPane.showMessageDialog(null, "Que pena, voce perdeu!\n\n Sua pontuação foi: " + pontuacao + ".");
             // GRAVAR NO BD RANKING
             TelaInicial inicio = new TelaInicial();
