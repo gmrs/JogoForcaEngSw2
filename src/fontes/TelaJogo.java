@@ -33,10 +33,11 @@ public class TelaJogo extends javax.swing.JFrame {
         initComponents();
     }
     
-    public TelaJogo(String nome, int forma) {
+    public TelaJogo(String nome, int forma) throws SQLException {
         nomeJogador = nome;
         formaJogo = forma;
         initComponents();
+        novaRodada();
     }
 
 
@@ -55,9 +56,17 @@ public class TelaJogo extends javax.swing.JFrame {
         this.nTentativas = nTentativas;
     }
     
-    public void novaRodada() throws SQLException{
-        this.palavraSorteada = DatabasePalavra.Sortear(true);
+    private void novaRodada() throws SQLException{
+        if (this.formaJogo==1)
+        {
+            this.palavraSorteada = DatabasePalavra.Sortear(false);
+        }
+        else
+        {
+            this.palavraSorteada = DatabasePalavra.Sortear(true);
+        }
         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavraCifrada());
+        jLabelCategoria.setText(this.palavraSorteada.getCategoria());
         jLabelPalavraFrase.repaint();
 
         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fundo.png"))); // NOI18N
@@ -99,6 +108,7 @@ public class TelaJogo extends javax.swing.JFrame {
                     // EXIBE LETRA
                     if(partida.fimRodada(nTentativas, 0) == true) //MUDAR
                     {
+                        jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
                         if(formaJogo == 1) pontos = 100; // SE PALAVRA
                         else pontos = 200;

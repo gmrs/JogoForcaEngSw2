@@ -331,9 +331,13 @@ public class TelaInicial extends javax.swing.JFrame {
         if(jTextFieldNome.getText().isEmpty() == true) JOptionPane.showMessageDialog(null, "Você não informou seu nome, favor inserir seu nome antes de iniciar a partida.");
         else if(jRadioButtonFrase.isSelected()==false && jRadioButtonPalavra.isSelected()==false) JOptionPane.showMessageDialog(null, "Você não escolheu o modo de jogo, favor escolher o modo de jogo antes de iniciar a partida.");
             else{
+            try {
                 TelaJogo jogo = new TelaJogo(jTextFieldNome.getText(), modoJogo);
                 jogo.setVisible(true);
                 dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
     }//GEN-LAST:event_jButtonJogarActionPerformed
 

@@ -19,11 +19,12 @@ public class Palavra
     }
 
     public String getPalavraCifrada() {
-        return palavra.replaceAll("A", "_");
+        return palavra.replaceAll("[A-Z]", "?");
+        //return palavra;
     }
         
     public void setPalavra(String palavra) {
-        this.palavra = palavra;
+        this.palavra = palavra.toUpperCase();
     }
 
     public String getCategoria() {
@@ -46,8 +47,8 @@ public class Palavra
         
     Palavra(String p_palavra_frase, String p_categoria)
     {
-        this.palavra = p_palavra_frase;
-        this.categoria = p_categoria;
+        this.palavra = p_palavra_frase.toUpperCase();
+        this.categoria = p_categoria.toUpperCase();
     }
     
     public boolean Contem(String letra)
