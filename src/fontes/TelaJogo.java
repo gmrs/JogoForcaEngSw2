@@ -70,19 +70,21 @@ public class TelaJogo extends javax.swing.JFrame {
         }
         // NUMERO DE LETRAS DA PALAVRA SORTEADA (SEM ESPAÇO)
         nLetras = palavraSorteada.getCaracteresSemEspacos();
-        // NUMERO DE TENTATIVAS ZERADO (=6)
+        // LIMPA A LISTA DE LETRAS SELECIONADAS NA RODADA
         tentativas.clear();
         // EXIBE A PALAVRA CIFRADA (COM OS TRAÇOS)
         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavraCifrada());
         // EXIBE A CATEGORIA
         jLabelCategoria.setText(this.palavraSorteada.getCategoria());
         jLabelPalavraFrase.repaint();
-
+        // FUNDO PADRÃO
         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fundo.png"))); // NOI18N
+        //NUMERO DE TENTATIVAS ZERADO (=6)
         setnTentativas(6);
+        // ATUALIZA PAINEL DE NUMERO DE TENTATIVAS RESTANTES
+        jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
         
         // ZERAR TEMPO;
-        // EXIBE NOVA PALAVRA
         
         a.setEnabled(true);
         b.setEnabled(true);
