@@ -25,6 +25,7 @@ public class TelaJogo extends javax.swing.JFrame {
     private int nTentativas = 6;
     private int nLetras;
     private int pontos;
+    ArrayList tentativas = new ArrayList();
     
     
     
@@ -43,7 +44,7 @@ public class TelaJogo extends javax.swing.JFrame {
     }
 
 
-    ArrayList tentativas = new ArrayList();
+
     /**
     * @return the nTentativas
     */
@@ -67,9 +68,13 @@ public class TelaJogo extends javax.swing.JFrame {
         {
             this.palavraSorteada = DatabasePalavra.Sortear(true);
         }
+        // NUMERO DE LETRAS DA PALAVRA SORTEADA (SEM ESPAÇO)
         nLetras = palavraSorteada.getCaracteresSemEspacos();
+        // NUMERO DE TENTATIVAS ZERADO (=6)
         tentativas.clear();
+        // EXIBE A PALAVRA CIFRADA (COM OS TRAÇOS)
         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavraCifrada());
+        // EXIBE A CATEGORIA
         jLabelCategoria.setText(this.palavraSorteada.getCategoria());
         jLabelPalavraFrase.repaint();
 
@@ -100,6 +105,7 @@ public class TelaJogo extends javax.swing.JFrame {
         t.setEnabled(true);
         u.setEnabled(true);
         v.setEnabled(true);
+        w.setEnabled(true);
         x.setEnabled(true);
         z.setEnabled(true);
     }
@@ -126,6 +132,19 @@ public class TelaJogo extends javax.swing.JFrame {
                             Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         JOptionPane.showMessageDialog(null, "Parabéns! Você acertou!\n\n Sua pontuação é: " + pontuacaoTotal + ".\n\nClique em OK para continuar");
+                        
+                        // POWERUP EXIBE LETRA
+                        power.setExibeLetra(true);
+                        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_color.png"))); // NOI18N
+                        
+                        // POWERUP ULTIMA CHANCE
+                        /* AGUARDANDO DESENVOLVIMENTO DO TEMPO DE JOGO */
+                        
+                        // POWERUP VIDA EXTRA
+                        if(nTentativas == 6){
+                            power.setVidaExtra(true);
+                            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_color.png"))); // NOI18N
+                        }
                         novaRodada();
                     }
                 }
@@ -180,6 +199,8 @@ public class TelaJogo extends javax.swing.JFrame {
     boolean ok = partida.novoJogo();
     // ATUALIZA PONTOS
     int pontuacaoTotal = partida.atualizaPontuacao(pontos);
+    
+    Powerup power = new Powerup();
     
     
     
@@ -623,6 +644,11 @@ public class TelaJogo extends javax.swing.JFrame {
         jButton3.setContentAreaFilled(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton3.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_pb_s.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_pb.png"))); // NOI18N
         jButton4.setToolTipText("Para adquirir complete uma rodada.");
@@ -1231,11 +1257,28 @@ public class TelaJogo extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        // POWERUP EXIBE LETRA
+        if(power.isExibeLetra()==true){ 
+            if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja usar o PowerUp EXIBE LETRA? \n(exibe uma letra na Palavra/Frase)", "PowerUp Exibe letra",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                power.setExibeLetra(false);
+                jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_pb.png"))); // NOI18N
+            }
+        } else JOptionPane.showMessageDialog(null, "Você ainda não possui o PowerUp EXIBE LETRA, para adiquirir complete a palavra ou frase.");
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if(power.isUltimaChance()==true) JOptionPane.showMessageDialog(null, "Este PowerUp é automático. \nCaso você não acerte a palavra/frase, automaticamente terá uma ultima chance.");
+        else JOptionPane.showMessageDialog(null, "Você ainda não possui o PowerUp ULTIMA CHANCE, para adiquirir complete a palavra ou frase em menos de 20 segundos.");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(power.isVidaExtra()==true) JOptionPane.showMessageDialog(null, "Este PowerUp é automático. \nCaso você não acerte a palavra/frase, automaticamente passará para a próxima rodada sem prejuízo em sua pontuação.");
+        else JOptionPane.showMessageDialog(null, "Você ainda não possui o PowerUp VIDA EXTRA, para adiquirir complete a palavra ou frase sem errar nenhum letra.");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
 
