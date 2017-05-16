@@ -8,6 +8,8 @@ package fontes;
 import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,6 +19,34 @@ import javax.swing.JOptionPane;
  * @author Guilherme
  */
 public class TelaJogo extends javax.swing.JFrame {
+    
+    private static Timer cronometro = new Timer();
+    private int contador = 0;
+    
+    public TimerTask run()
+    {
+        return new TimerTask()
+        {
+            public void run()
+            {
+                contador=contador+1;
+                //System.out.println("TEMPO:" + contador);
+                jLabelTempo2.setText(""+contador);
+                if (contador==0)
+                {
+                    terminouTempo();
+                    cronometro.cancel();
+                }
+            }
+        };
+    }
+    
+    public static void terminouTempo()
+    {
+        System.out.println("Tempo excedido");
+    }
+    
+    
 
     private String letra;
     private String nomeJogador;
@@ -110,9 +140,20 @@ public class TelaJogo extends javax.swing.JFrame {
         w.setEnabled(true);
         x.setEnabled(true);
         z.setEnabled(true);
+        cronometro.cancel();
+        cronometro.purge();
+        cronometro = new Timer();
+        TimerTask tarefa = run();
+        contador = 0;
+        cronometro.scheduleAtFixedRate(tarefa, 1000, 1000);
     }
     
     public void confere() throws SQLException{
+        if(contador<20)
+        {
+            power.setVidaExtra(true);
+            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_color.jpg"))); // NOI18N
+        }
         if(!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos())){
             tentativas.add(letra);
 
@@ -147,6 +188,7 @@ public class TelaJogo extends javax.swing.JFrame {
                             power.setVidaExtra(true);
                             jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_color.png"))); // NOI18N
                         }
+
                         novaRodada();
                     }
                 }
@@ -766,10 +808,10 @@ public class TelaJogo extends javax.swing.JFrame {
         jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
 
         jLabelTempo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabelTempo.setText("Tempo");
+        jLabelTempo.setText("Tempo (s)");
 
         jLabelTempo2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabelTempo2.setText("20 s");
+        jLabelTempo2.setText("0");
 
         jLabelTentativasRestantes.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabelTentativasRestantes.setText(String.valueOf(nTentativas));
