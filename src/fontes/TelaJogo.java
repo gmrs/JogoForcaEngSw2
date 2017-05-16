@@ -149,12 +149,12 @@ public class TelaJogo extends javax.swing.JFrame {
     }
     
     public void confere() throws SQLException{
-        if(contador<20)
-        {
-            power.setVidaExtra(true);
-            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_color.jpg"))); // NOI18N
-        }
+
         if(!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos())){
+            
+            
+
+                    
             tentativas.add(letra);
 
                 if(palavraSorteada.Contem(letra)){
@@ -163,6 +163,12 @@ public class TelaJogo extends javax.swing.JFrame {
                     nLetras = nLetras-palavraSorteada.getNumLetraDescoberta(letra);
                     if(partida.fimRodada(nTentativas, nLetras) == true) //MUDAR
                     {
+                        if(contador<=20)
+                        {
+                            power.setVidaExtra(true);
+                            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_color.jpg"))); // NOI18N
+                        }
+                                
                         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
                         if(formaJogo == 1) pontos = 100; // SE PALAVRA
