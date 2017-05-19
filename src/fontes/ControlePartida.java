@@ -6,8 +6,10 @@
 package fontes;
 
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sql.rowset.CachedRowSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,7 +42,7 @@ public class ControlePartida {
         else return false;
     }
     
-    public boolean fimJogo(int nTentativas, int nLetras, int totalLetras){
+    public boolean fimJogo(int nTentativas, int nLetras, int totalLetras, String jog){
         if((nTentativas < 0) && (nLetras > 0)){
             // VERIFICAR SE POSSUI POWERUP, SE SIM, FAZER MÉTODO PARA UTILIZAR.
             try {
@@ -50,9 +52,15 @@ public class ControlePartida {
             }
             pontuacao = pontuacao + ((totalLetras-nLetras)*20);
             JOptionPane.showMessageDialog(null, "Que pena, voce perdeu!\n\n Sua pontuação foi: " + pontuacao + ".");
-            // GRAVAR NO BD RANKING
+            try {
+                // GRAVAR NO BD RANKING
+                DatabaseRanking.SalvarRanking(jog, pontuacao);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControlePartida.class.getName()).log(Level.SEVERE, null, ex);
+            }
             TelaInicial inicio = new TelaInicial();
             inicio.setVisible(true);
+                    
             return true;
         }
         else return false;

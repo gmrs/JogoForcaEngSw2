@@ -22,6 +22,7 @@ public class TelaJogo extends javax.swing.JFrame {
     
     private static Timer cronometro = new Timer();
     private int contador = 0;
+    private Boolean intercalar = false;
     
     public TimerTask run()
     {
@@ -94,9 +95,14 @@ public class TelaJogo extends javax.swing.JFrame {
         {
             this.palavraSorteada = DatabasePalavra.Sortear(false);
         }
-        else
+        else if (this.formaJogo==2)
         {
             this.palavraSorteada = DatabasePalavra.Sortear(true);
+        }
+        else
+        {
+            this.palavraSorteada = DatabasePalavra.Sortear(intercalar);
+            intercalar = !intercalar;
         }
         // NUMERO DE LETRAS DA PALAVRA SORTEADA (SEM ESPAÇO)
         nLetras = palavraSorteada.getCaracteresSemEspacos();
@@ -150,7 +156,7 @@ public class TelaJogo extends javax.swing.JFrame {
     
     public void confere() throws SQLException{
 
-        if(!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos())){
+        if(!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos(), nomeJogador)){
             
             
 
@@ -227,9 +233,10 @@ public class TelaJogo extends javax.swing.JFrame {
                         break;
                     }
                     case(-1):{
+                        //DatabaseRanking.SalvarRanking(nomeJogador, pontos);
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
                         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
-                        partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos());
+                        partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos(), nomeJogador);
                         dispose();
                         break;
                     }
@@ -803,8 +810,9 @@ public class TelaJogo extends javax.swing.JFrame {
 
         jLabelModoJogo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         String modo;
-        if(formaJogo == 1) modo = "PALAVRA";
-        else modo = "FRASE";
+        if(formaJogo == 1) {modo = "PALAVRA";}
+        else if (formaJogo ==2) {modo = "FRASE";}
+        else {modo = "PALAVRA/FRASE";}
         jLabelModoJogo.setText(modo);
 
         jLabelPontuacao.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N

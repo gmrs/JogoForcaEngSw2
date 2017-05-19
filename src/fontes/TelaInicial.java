@@ -1,5 +1,6 @@
 package fontes;
 
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import javax.sql.rowset.CachedRowSet;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
@@ -41,15 +43,18 @@ public class TelaInicial extends javax.swing.JFrame {
         try {
             
             CachedRowSet ranking = DatabaseRanking.GetRanking();
-            FillTable(jTable1, ranking);
+            FillTable(jTable1, ranking, DatabaseRanking.GetUltimaPartida());
         } catch (SQLException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
 
-    public void FillTable(JTable table, CachedRowSet rs)
+    public void FillTable(JTable table, CachedRowSet rs, String maiorData)
     {
+        int ranking = 0;
+        int iplus = 0;
+        String aux;
         try
         {
             while(table.getRowCount() > 0) 
@@ -59,16 +64,41 @@ public class TelaInicial extends javax.swing.JFrame {
             int columns = rs.getMetaData().getColumnCount();
             while(rs.next())
             {  
+                ranking+=1;
                 Object[] row = new Object[columns];
                 for (int i = 1; i <= columns; i++)
                 {  
-                    row[i - 1] = rs.getObject(i);
+                    if (i==1)
+                    {
+                        row[i - 1] = "[" + ranking + "º] " +  (String)rs.getObject(i);    
+                    }
+                    else
+                    {
+                        row[i - 1] = rs.getObject(i);
+                        aux = row[i-1].toString();
+                        if (maiorData.compareTo(aux)==0)
+                        {
+                            iplus=ranking-1;
+                        }
+                    }
+
                 }
                 ((DefaultTableModel) table.getModel()).insertRow(rs.getRow()-1,row);
             }
         }
         catch(Exception ex9)
         {
+        }
+        table.setAutoscrolls(true);
+        table.setFocusable(true);
+        table.setSelectionBackground(Color.BLUE);
+        table.setCellSelectionEnabled(false);
+        table.setColumnSelectionAllowed(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowSelectionAllowed(true);
+        if (table.getRowCount()>0)
+        {
+            table.setRowSelectionInterval(0,iplus);
         }
     }
 
@@ -92,6 +122,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabelFormaJogo = new javax.swing.JLabel();
         jRadioButtonPalavra = new javax.swing.JRadioButton();
         jRadioButtonFrase = new javax.swing.JRadioButton();
+        jRadioButtonAmbos = new javax.swing.JRadioButton();
         jMenuBarMenuPrincipal = new javax.swing.JMenuBar();
         jMenuInf = new javax.swing.JMenu();
         jMenuItemAjuda = new javax.swing.JMenuItem();
@@ -200,6 +231,13 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtonAmbos.setText("Palavras e frases");
+        jRadioButtonAmbos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAmbosActionPerformed(evt);
+            }
+        });
+
         jMenuBarMenuPrincipal.setName(""); // NOI18N
 
         jMenuInf.setText("Informações");
@@ -249,8 +287,13 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButtonJogar, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabelFormaJogo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButtonPalavra, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButtonFrase, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jRadioButtonPalavra)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jRadioButtonFrase)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jRadioButtonAmbos)))
                             .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -276,11 +319,12 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23)
                         .addComponent(jLabelFormaJogo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonPalavra)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonFrase)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonAmbos)
+                            .addComponent(jRadioButtonFrase)
+                            .addComponent(jRadioButtonPalavra))
+                        .addGap(21, 21, 21)
                         .addComponent(jButtonJogar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
@@ -311,13 +355,21 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jRadioButtonPalavraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPalavraActionPerformed
         // TODO add your handling code here:
-        if(jRadioButtonFrase.isSelected() == true) jRadioButtonFrase.setSelected(false);
+        if(jRadioButtonPalavra.isSelected() == true)
+        {
+             jRadioButtonAmbos.setSelected(false);
+             jRadioButtonFrase.setSelected(false);
+        }
         modoJogo = 1;
     }//GEN-LAST:event_jRadioButtonPalavraActionPerformed
 
     private void jRadioButtonFraseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFraseActionPerformed
         // TODO add your handling code here:
-        if(jRadioButtonPalavra.isSelected() == true) jRadioButtonPalavra.setSelected(false);
+        if(jRadioButtonFrase.isSelected() == true)
+        {
+             jRadioButtonPalavra.setSelected(false);
+             jRadioButtonAmbos.setSelected(false);
+        }
         modoJogo = 2;
     }//GEN-LAST:event_jRadioButtonFraseActionPerformed
 
@@ -329,7 +381,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButtonJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJogarActionPerformed
         // TODO add your handling code here:
         if(jTextFieldNome.getText().isEmpty() == true) JOptionPane.showMessageDialog(null, "Você não informou seu nome, favor inserir seu nome antes de iniciar a partida.");
-        else if(jRadioButtonFrase.isSelected()==false && jRadioButtonPalavra.isSelected()==false) JOptionPane.showMessageDialog(null, "Você não escolheu o modo de jogo, favor escolher o modo de jogo antes de iniciar a partida.");
+        else if(jRadioButtonFrase.isSelected()==false && jRadioButtonPalavra.isSelected()==false && jRadioButtonAmbos.isSelected()==false) JOptionPane.showMessageDialog(null, "Você não escolheu o modo de jogo, favor escolher o modo de jogo antes de iniciar a partida.");
             else{
             try {
                 TelaJogo jogo = new TelaJogo(jTextFieldNome.getText(), modoJogo);
@@ -343,6 +395,17 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jTable1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTable1ComponentAdded
     }//GEN-LAST:event_jTable1ComponentAdded
+
+    private void jRadioButtonAmbosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmbosActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        if(jRadioButtonAmbos.isSelected() == true)
+        {
+             jRadioButtonPalavra.setSelected(false);
+             jRadioButtonFrase.setSelected(false);
+        }
+        modoJogo = 3;
+    }//GEN-LAST:event_jRadioButtonAmbosActionPerformed
     
     /**
      * @param args the command line arguments
@@ -390,6 +453,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JPanel jPanelRanking;
+    private javax.swing.JRadioButton jRadioButtonAmbos;
     private javax.swing.JRadioButton jRadioButtonFrase;
     private javax.swing.JRadioButton jRadioButtonPalavra;
     private javax.swing.JScrollPane jScrollPane1;

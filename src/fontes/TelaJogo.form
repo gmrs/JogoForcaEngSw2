@@ -921,7 +921,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" preCode="String modo;&#xa;if(formaJogo == 1) modo = &quot;PALAVRA&quot;;&#xa;else modo = &quot;FRASE&quot;;">
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" preCode="String modo;&#xa;if(formaJogo == 1) {modo = &quot;PALAVRA&quot;;}&#xa;else if (formaJogo ==2) {modo = &quot;FRASE&quot;;}&#xa;else {modo = &quot;PALAVRA/FRASE&quot;;}">
               <Connection code="modo" type="code"/>
             </Property>
           </Properties>
