@@ -24,7 +24,7 @@ public class DatabasePalavra
         Database db = new Database();
         CachedRowSet crs = new CachedRowSetImpl();
         Random rand = new Random();
-        String sql = "SELECT palavra, tipo, categoria, letras FROM palavra where letras = " + (rand.nextInt(23) + 1);
+        String sql = "SELECT palavra, tipo, categoria, letras FROM palavra where letras = " + (rand.nextInt(39) + 1);
         sql += " and tipo='" + sortearTipo() + "'";
         sql += " LIMIT 1";
         
@@ -50,7 +50,7 @@ public class DatabasePalavra
         Database db = new Database();
         CachedRowSet crs = new CachedRowSetImpl();
         Random rand = new Random();
-        String sql = "SELECT palavra, tipo, categoria, letras FROM palavra where letras = " + (rand.nextInt(23) + 1);
+        String sql = "SELECT palavra, tipo, categoria, letras FROM palavra where letras = " + (rand.nextInt(39) + 1);
         if (frases)
         {
             sql += " and tipo = 'F' ";

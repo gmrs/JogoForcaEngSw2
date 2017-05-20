@@ -138,7 +138,6 @@ public class TelaInicial extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 670));
         setResizable(false);
 
-        jPanelRanking.setBackground(new java.awt.Color(204, 204, 204));
         jPanelRanking.setBorder(javax.swing.BorderFactory.createTitledBorder("Ranking"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -186,8 +185,8 @@ public class TelaInicial extends javax.swing.JFrame {
             jPanelRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRankingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         jLabelImgForca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/forca.jpg"))); // NOI18N
@@ -207,7 +206,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonJogar.setBorder(null);
         jButtonJogar.setBorderPainted(false);
         jButtonJogar.setContentAreaFilled(false);
-        jButtonJogar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonJogar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonJogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonJogarActionPerformed(evt);

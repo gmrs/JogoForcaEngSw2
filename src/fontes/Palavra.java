@@ -60,6 +60,11 @@ public class Palavra
         return palavra.contains(letra);
     }
     
+    public boolean contemEspaco()
+    {
+        return palavra.contains(" ");
+    }
+    
     public String getLetraDescobreta(ArrayList<String> letra){
         String texto_temp="";
         for (int n=1; n<=palavra.length(); n++){       //pega o tamanho da palavra para gerar os traços

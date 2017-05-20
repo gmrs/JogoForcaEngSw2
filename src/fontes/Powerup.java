@@ -5,6 +5,12 @@
  */
 package fontes;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Guilherme
@@ -22,6 +28,35 @@ public class Powerup {
         ultimaChance = false;
         vidaExtra = false;
     }
+    
+    public String exibeLetra(String palavra, ArrayList tent){
+        String replace = null;
+        char letra;
+        Random rand = new Random();
+        if(!tent.isEmpty()){
+            for(int i=1; i<=palavra.length(); i++){
+                 if((tent.contains(palavra.substring(i-1, i)))){
+                    replace = palavra.replace(palavra.substring(i-1, i), "");
+                    System.out.println(replace);
+                    palavra = replace;
+                 }
+            }
+            letra = replace.charAt(rand.nextInt(replace.length()));
+            replace = String.valueOf(letra);
+        }
+        else {
+            letra = palavra.charAt(rand.nextInt(palavra.length()));
+            replace = String.valueOf(letra);
+        }
+        return replace;
+    }
+    
+    public int ultimaChance(int ntent){
+        ntent++;
+        JOptionPane.showMessageDialog(null, "Você esta utilizando seu Powerup ULTIMA CHANCE. \nVocê tem mais uma tentativa, aproveite!");
+        return ntent;
+    }
+    
 
     public boolean isExibeLetra() {
         return exibeLetra;

@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class ControlePartida {
     int pontuacao;
+    Powerup power = new Powerup();
+    
     
     public boolean novoJogo(){
         pontuacao = 0;
@@ -45,13 +47,8 @@ public class ControlePartida {
     public boolean fimJogo(int nTentativas, int nLetras, int totalLetras, String jog){
         if((nTentativas < 0) && (nLetras > 0)){
             // VERIFICAR SE POSSUI POWERUP, SE SIM, FAZER MÉTODO PARA UTILIZAR.
-            try {
-                sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
-            }
             pontuacao = pontuacao + ((totalLetras-nLetras)*20);
-            JOptionPane.showMessageDialog(null, "Que pena, voce perdeu!\n\n Sua pontuação foi: " + pontuacao + ".");
+            JOptionPane.showMessageDialog(null, "Que pena, voce perdeu!\nVocê acertou "+ (totalLetras-nLetras) +" letras nesta rodada.\n\n Sua pontuação final foi: " + pontuacao + ".");
             try {
                 // GRAVAR NO BD RANKING
                 DatabaseRanking.SalvarRanking(jog, pontuacao);

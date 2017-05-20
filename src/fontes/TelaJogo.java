@@ -5,6 +5,8 @@
  */
 package fontes;
 
+import java.awt.Color;
+import java.awt.Font;
 import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sql.rowset.CachedRowSet;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,6 +37,11 @@ public class TelaJogo extends javax.swing.JFrame {
                 contador=contador+1;
                 //System.out.println("TEMPO:" + contador);
                 jLabelTempo2.setText(""+contador);
+                if(contador <= 20) {
+                    jLabelTempo2.setFont(new Font("Times New Roman", Font.BOLD, 12));
+                    jLabelTempo2.setForeground(Color.BLUE);
+                }
+                else jLabelTempo2.setForeground(Color.BLACK);
                 if (contador==0)
                 {
                     terminouTempo();
@@ -111,7 +120,8 @@ public class TelaJogo extends javax.swing.JFrame {
         // EXIBE A PALAVRA CIFRADA (COM OS TRAÇOS)
         jLabelPalavraFrase.setText(this.palavraSorteada.getPalavraCifrada());
         // EXIBE A CATEGORIA
-        jLabelCategoria.setText(this.palavraSorteada.getCategoria());
+        jLabelCategoria1.setText("");
+        jLabelCategoria1.setText("Categoria: "+jLabelCategoria1.getText()+this.palavraSorteada.getCategoria());
         jLabelPalavraFrase.repaint();
         // FUNDO PADRÃO
         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Fundo.png"))); // NOI18N
@@ -119,6 +129,7 @@ public class TelaJogo extends javax.swing.JFrame {
         setnTentativas(6);
         // ATUALIZA PAINEL DE NUMERO DE TENTATIVAS RESTANTES
         jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
+        jLabelTentativasRestantes.setForeground(Color.BLACK);
         
         // ZERAR TEMPO;
         
@@ -135,6 +146,7 @@ public class TelaJogo extends javax.swing.JFrame {
         l.setEnabled(true);
         m.setEnabled(true);
         n.setEnabled(true);
+        k.setEnabled(true);
         o.setEnabled(true);
         p.setEnabled(true);
         q.setEnabled(true);
@@ -144,6 +156,7 @@ public class TelaJogo extends javax.swing.JFrame {
         u.setEnabled(true);
         v.setEnabled(true);
         w.setEnabled(true);
+        y.setEnabled(true);
         x.setEnabled(true);
         z.setEnabled(true);
         cronometro.cancel();
@@ -154,100 +167,154 @@ public class TelaJogo extends javax.swing.JFrame {
         cronometro.scheduleAtFixedRate(tarefa, 1000, 1000);
     }
     
-    public void confere() throws SQLException{
+    public void confere() throws SQLException {
 
-        if(!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos(), nomeJogador)){
-            
-            
+        if (!partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos(), nomeJogador)) {
 
-                    
             tentativas.add(letra);
 
-                if(palavraSorteada.Contem(letra)){
-                    // Acertou - EXIBE A LETRA
-                    jLabelPalavraFrase.setText(palavraSorteada.getLetraDescobreta(tentativas));
-                    nLetras = nLetras-palavraSorteada.getNumLetraDescoberta(letra);
-                    if(partida.fimRodada(nTentativas, nLetras) == true) //MUDAR
-                    {
-                        if(contador<=20)
-                        {
-                            power.setVidaExtra(true);
-                            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_color.jpg"))); // NOI18N
-                        }
-                                
-                        jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
-                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
-                        if(formaJogo == 1) pontos = 100; // SE PALAVRA
-                        else pontos = 200;
-                        pontuacaoTotal = partida.atualizaPontuacao(pontos);
-                        jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
-                        try {
-                            sleep(2000);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        JOptionPane.showMessageDialog(null, "Parabéns! Você acertou!\n\n Sua pontuação é: " + pontuacaoTotal + ".\n\nClique em OK para continuar");
-                        
-                        // POWERUP EXIBE LETRA
-                        power.setExibeLetra(true);
-                        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_color.png"))); // NOI18N
-                        
-                        // POWERUP ULTIMA CHANCE
-                        /* AGUARDANDO DESENVOLVIMENTO DO TEMPO DE JOGO */
-                        
-                        // POWERUP VIDA EXTRA
-                        if(nTentativas == 6){
-                            power.setVidaExtra(true);
-                            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_color.png"))); // NOI18N
-                        }
-
-                        novaRodada();
+            if (palavraSorteada.Contem(letra)) {
+                // Acertou - EXIBE A LETRA
+                jLabelPalavraFrase.setText(palavraSorteada.getLetraDescobreta(tentativas));
+                nLetras = nLetras - palavraSorteada.getNumLetraDescoberta(letra);
+                if (partida.fimRodada(nTentativas, nLetras) == true) //MUDAR
+                {
+                    if (contador <= 20) {
+                        power.setUltimaChance(true);
+                        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_color.jpg"))); // NOI18N
                     }
+                    if (power.isVidaExtra() == false) {
+                        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_pb.png"))); // NOI18
+                    }
+                    jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
+                    jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
+                    if (!palavraSorteada.contemEspaco()) {//getfrase ou palavra
+                        pontos = 100; // SE PALAVRA
+                    } else {
+                        pontos = 200;
+                    } 
+                    pontuacaoTotal = partida.atualizaPontuacao(pontos);
+                    jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
+
+                    // POWERUP EXIBE LETRA
+                    power.setExibeLetra(true);
+                    jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_color.png"))); // NOI18N
+
+                    if (nTentativas == 6) {
+                        power.setVidaExtra(true);
+                        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_color.png"))); // NOI18N
+                    }
+                    
+                    try {
+                        sleep(500);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(null, "Parabéns! Você acertou a palavra/frase e ganhou mais "+ pontos +" pontos!\nSua pontuação atual é: " + pontuacaoTotal + ".\n\nClique em OK para continuar");
+                    // POWERUP ULTIMA CHANCE
+                    /* AGUARDANDO DESENVOLVIMENTO DO TEMPO DE JOGO */
+                    // POWERUP VIDA EXTRA
+                    
+
+                    novaRodada();
                 }
-                else{
-                    nTentativas = nTentativas - 1;    //vai adicionando o numero de tentativas; se errar, adiciona o desenho
-                    jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
-                    switch(nTentativas){
-                    case(5):{
+            } else {
+                nTentativas = nTentativas - 1;    //vai adicionando o numero de tentativas; se errar, adiciona o desenho
+                jLabelTentativasRestantes.setText(String.valueOf(getnTentativas()));
+                if(nTentativas<2){
+                    jLabelTentativasRestantes.setFont(new Font("Times New Roman", Font.BOLD, 12));
+                    jLabelTentativasRestantes.setForeground(Color.RED);
+                }
+                switch (nTentativas) {
+                    case (5): {
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa1.png"))); // NOI18N
                         break;
                     }
-                    case(4):{
+                    case (4): {
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa2.png"))); // NOI18N
                         break;
                     }
-                    case(3):{
+                    case (3): {
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa3.png"))); // NOI18N
                         break;
                     }
-                    case(2):{
+                    case (2): {
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa4.png"))); // NOI18N
                         break;
                     }
-                    case(1):{
+                    case (1): {
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa5.png"))); // NOI18N
                         break;
                     }
-                    case(0):{
+                    case (0): {
                         jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Tentativa6.png"))); // NOI18N
                         break;
                     }
-                    case(-1):{
+                    case (-1): {
                         //DatabaseRanking.SalvarRanking(nomeJogador, pontos);
-                        jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
-                        jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
-                        partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos(), nomeJogador);
-                        dispose();
+                        if (power.isUltimaChance() == true) {
+                            nTentativas = power.ultimaChance(nTentativas);
+                            jLabelTentativasRestantes.setText(String.valueOf(nTentativas));
+                            power.setUltimaChance(false);
+                            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/r_pb.png"))); // NOI18N
+                        } else if (power.isVidaExtra() == true) {
+                            
+                                jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_pb.png"))); // NOI18
+                                power.setVidaExtra(false);
+                                JOptionPane.showMessageDialog(null, "Você esta utilizando seu Powerup VIDA EXTRA!");
+                                jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
+                                jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Venceu.png"))); // NOI18N
+                                if (formaJogo == 1) {
+                                    pontos = 100; // SE PALAVRA
+                                } else {
+                                    pontos = 200;
+                                }
+                                pontuacaoTotal = partida.atualizaPontuacao(pontos);
+                                jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
+
+                                // POWERUP EXIBE LETRA
+                                power.setExibeLetra(true);
+                                jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_color.png"))); // NOI18N
+
+                                // POWERUP VIDA EXTRA
+                                if (nTentativas == 6) {
+                                    power.setVidaExtra(true);
+                                    jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/c_color.png"))); // NOI18N
+                                }
+
+                                try {
+                                    sleep(500);
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                JOptionPane.showMessageDialog(null, "Parabéns! Você acertou!\n\n Sua pontuação é: " + pontuacaoTotal + ".\n\nClique em OK para continuar");
+
+                                // POWERUP ULTIMA CHANCE
+                                /* AGUARDANDO DESENVOLVIMENTO DO TEMPO DE JOGO */
+                                novaRodada();
+                            
+                            } else {
+                                jLabelAnimacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Perdeu.png"))); // NOI18N
+                                jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
+                                jLabelPalavraFrase.setText(this.palavraSorteada.getPalavra());
+                                 
+                                try {
+                                    sleep(1000);
+                                 } catch (InterruptedException ex) {
+                                    Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                                 }
+                                partida.fimJogo(nTentativas, nLetras, palavraSorteada.getCaracteresSemEspacos(), nomeJogador);
+                                dispose();
+                            }
                         break;
                     }
-                    
-                }  
-        }
+
+                }
+            }
 
         }
-            
-        
-}
+
+    }
     
     
     // NOVA PARTIDA
@@ -319,11 +386,13 @@ public class TelaJogo extends javax.swing.JFrame {
         jLabelTempo2 = new javax.swing.JLabel();
         jLabelTentativasRestantes = new javax.swing.JLabel();
         jLabelTentativas = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
         jPanelPalavra = new javax.swing.JPanel();
-        jLabelCategoria = new javax.swing.JLabel();
         jLabelPalavraFrase = new javax.swing.JLabel();
         jPanelJogo = new javax.swing.JPanel();
         jLabelAnimacao = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelCategoria1 = new javax.swing.JLabel();
         jMenuBarMenuPrincipal = new javax.swing.JMenuBar();
         jMenuInf = new javax.swing.JMenu();
         jMenuItemAjuda = new javax.swing.JMenuItem();
@@ -581,7 +650,7 @@ public class TelaJogo extends javax.swing.JFrame {
         jPanelTecladoLayout.setHorizontalGroup(
             jPanelTecladoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTecladoLayout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addGap(98, 98, 98)
                 .addGroup(jPanelTecladoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelTecladoLayout.createSequentialGroup()
                         .addComponent(q, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -637,12 +706,12 @@ public class TelaJogo extends javax.swing.JFrame {
                         .addComponent(n, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(m, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanelTecladoLayout.setVerticalGroup(
             jPanelTecladoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTecladoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelTecladoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(jPanelTecladoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(q, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(w, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -674,10 +743,9 @@ public class TelaJogo extends javax.swing.JFrame {
                     .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(n, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelPowerUp.setBackground(new java.awt.Color(204, 204, 204));
         jPanelPowerUp.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PowerUps", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanelPowerUp.setMaximumSize(new java.awt.Dimension(231, 170));
         jPanelPowerUp.setMinimumSize(new java.awt.Dimension(231, 170));
@@ -760,7 +828,7 @@ public class TelaJogo extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPowerUpLayout.setVerticalGroup(
             jPanelPowerUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,7 +861,6 @@ public class TelaJogo extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        jPanelJogador.setBackground(new java.awt.Color(204, 204, 204));
         jPanelJogador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Área do jogador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanelJogador.setMaximumSize(new java.awt.Dimension(231, 170));
         jPanelJogador.setMinimumSize(new java.awt.Dimension(231, 170));
@@ -815,17 +882,16 @@ public class TelaJogo extends javax.swing.JFrame {
         else {modo = "PALAVRA/FRASE";}
         jLabelModoJogo.setText(modo);
 
-        jLabelPontuacao.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabelPontuacao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelPontuacao.setText("Pontuação:");
 
-        jLabelPontuacao2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabelPontuacao2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelPontuacao2.setText(String.valueOf(pontuacaoTotal));
 
         jLabelTempo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelTempo.setText("Tempo (s)");
 
         jLabelTempo2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabelTempo2.setText("0");
 
         jLabelTentativasRestantes.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabelTentativasRestantes.setText(String.valueOf(nTentativas));
@@ -840,39 +906,39 @@ public class TelaJogo extends javax.swing.JFrame {
             .addGroup(jPanelJogadorLayout.createSequentialGroup()
                 .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                        .addComponent(jLabelTentativas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelTentativasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                        .addComponent(jLabelTempo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabelPontuacao))
+                                .addComponent(jLabelModo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelModoJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                                .addComponent(jLabelTempo2)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelPontuacao2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabelJogador)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelNomeJogador))
+                            .addGroup(jPanelJogadorLayout.createSequentialGroup()
+                                .addComponent(jLabelTentativas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelTentativasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelTempo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelTempo2))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelJogadorLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                        .addComponent(jLabelModo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelModoJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                        .addComponent(jLabelJogador)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelNomeJogador))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(jLabelPontuacao)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelPontuacao2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelJogadorLayout.setVerticalGroup(
             jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelJogadorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelJogador)
                     .addComponent(jLabelNomeJogador))
@@ -880,27 +946,24 @@ public class TelaJogo extends javax.swing.JFrame {
                 .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelModoJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelModo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTentativas)
-                    .addComponent(jLabelTentativasRestantes))
+                    .addComponent(jLabelTentativasRestantes)
+                    .addComponent(jLabelTempo)
+                    .addComponent(jLabelTempo2))
+                .addGap(12, 12, 12)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelPontuacao, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelPontuacao2))
-                    .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelTempo)
-                        .addComponent(jLabelTempo2)))
-                .addContainerGap())
+                .addGroup(jPanelJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelPontuacao2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPontuacao, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
 
         jPanelPalavra.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabelCategoria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelCategoria.setText("Categoria: <variavel>");
 
         jLabelPalavraFrase.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabelPalavraFrase.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -911,21 +974,14 @@ public class TelaJogo extends javax.swing.JFrame {
         jPanelPalavraLayout.setHorizontalGroup(
             jPanelPalavraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPalavraLayout.createSequentialGroup()
-                .addContainerGap(331, Short.MAX_VALUE)
-                .addComponent(jLabelCategoria)
-                .addGap(319, 319, 319))
-            .addGroup(jPanelPalavraLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelPalavraFrase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPalavraLayout.setVerticalGroup(
             jPanelPalavraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPalavraLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabelCategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabelPalavraFrase)
-                .addContainerGap())
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         jPanelJogo.setBackground(new java.awt.Color(255, 255, 255));
@@ -959,6 +1015,27 @@ public class TelaJogo extends javax.swing.JFrame {
             .addGroup(jPanelJogoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelAnimacao, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabelCategoria1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelCategoria1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCategoria1.setText("Categoria: ");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelCategoria1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelCategoria1)
                 .addContainerGap())
         );
 
@@ -1004,33 +1081,37 @@ public class TelaJogo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelTeclado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanelJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelPowerUp, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addComponent(jPanelJogador, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanelJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanelPowerUp, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                            .addComponent(jPanelJogador, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelPalavra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jPanelPalavra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelPowerUp, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelPowerUp, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelJogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jPanelPalavra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelTeclado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelTeclado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 709));
+        setSize(new java.awt.Dimension(816, 694));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1319,8 +1400,44 @@ public class TelaJogo extends javax.swing.JFrame {
         if(power.isExibeLetra()==true){ 
             if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja usar o PowerUp EXIBE LETRA? \n(exibe uma letra na Palavra/Frase)", "PowerUp Exibe letra",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
             {
+                letra = power.exibeLetra(palavraSorteada.getPalavra(), tentativas);
+                System.out.println(letra);
                 power.setExibeLetra(false);
                 jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_pb.png"))); // NOI18N
+                                
+                //JButton temp = new javax.swing.JButton();
+                if(letra.equals(a.getText())) a.setEnabled(false);
+                if(letra.equals(b.getText())) b.setEnabled(false);
+                if(letra.equals(c.getText())) c.setEnabled(false);
+                if(letra.equals(d.getText())) d.setEnabled(false);
+                if(letra.equals(e.getText())) e.setEnabled(false);
+                if(letra.equals(f.getText())) f.setEnabled(false);
+                if(letra.equals(g.getText())) g.setEnabled(false);
+                if(letra.equals(h.getText())) h.setEnabled(false);
+                if(letra.equals(i.getText())) i.setEnabled(false);
+                if(letra.equals(j.getText())) j.setEnabled(false);
+                if(letra.equals(l.getText())) l.setEnabled(false);
+                if(letra.equals(m.getText())) m.setEnabled(false);
+                if(letra.equals(n.getText())) n.setEnabled(false);
+                if(letra.equals(k.getText())) k.setEnabled(false);
+                if(letra.equals(o.getText())) o.setEnabled(false);
+                if(letra.equals(p.getText())) p.setEnabled(false);
+                if(letra.equals(q.getText())) q.setEnabled(false);
+                if(letra.equals(r.getText())) r.setEnabled(false);
+                if(letra.equals(s.getText())) s.setEnabled(false);
+                if(letra.equals(v.getText())) v.setEnabled(false);
+                if(letra.equals(x.getText())) x.setEnabled(false);
+                if(letra.equals(z.getText())) z.setEnabled(false);
+                if(letra.equals(y.getText())) y.setEnabled(false);
+                if(letra.equals(w.getText())) w.setEnabled(false);
+                
+                
+                
+                try {
+                    confere();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaJogo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else JOptionPane.showMessageDialog(null, "Você ainda não possui o PowerUp EXIBE LETRA, para adiquirir complete a palavra ou frase.");
         
@@ -1361,7 +1478,7 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelAnimacao;
-    private javax.swing.JLabel jLabelCategoria;
+    private javax.swing.JLabel jLabelCategoria1;
     private javax.swing.JLabel jLabelJogador;
     private javax.swing.JLabel jLabelModo;
     private javax.swing.JLabel jLabelModoJogo;
@@ -1378,6 +1495,7 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAjuda;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelJogador;
     private javax.swing.JPanel jPanelJogo;
     private javax.swing.JPanel jPanelPalavra;
@@ -1385,6 +1503,7 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTeclado;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton k;
     private javax.swing.JButton l;
     private javax.swing.JButton m;
