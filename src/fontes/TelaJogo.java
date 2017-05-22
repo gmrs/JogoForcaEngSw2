@@ -933,7 +933,7 @@ public class TelaJogo extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jLabelPontuacao)
                 .addGap(18, 18, 18)
-                .addComponent(jLabelPontuacao2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelPontuacao2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelJogadorLayout.setVerticalGroup(
@@ -1401,7 +1401,7 @@ public class TelaJogo extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja usar o PowerUp EXIBE LETRA? \n(exibe uma letra na Palavra/Frase)", "PowerUp Exibe letra",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
             {
                 letra = power.exibeLetra(palavraSorteada.getPalavra(), tentativas);
-                System.out.println(letra);
+                //System.out.println(letra);
                 power.setExibeLetra(false);
                 jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/powerup/l_pb.png"))); // NOI18N
                                 

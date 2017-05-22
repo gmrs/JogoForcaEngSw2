@@ -31,14 +31,19 @@ public class Powerup {
     
     public String exibeLetra(String palavra, ArrayList tent){
         String replace = null;
+        String temp = palavra;
         char letra;
         Random rand = new Random();
+        int tam = palavra.length();
         if(!tent.isEmpty()){
             for(int i=1; i<=palavra.length(); i++){
-                 if((tent.contains(palavra.substring(i-1, i)))){
-                    replace = palavra.replace(palavra.substring(i-1, i), "");
+                System.out.println("Letra: "+palavra.charAt(i-1));
+                 if((tent.contains(palavra.subSequence(i-1, i)))){
+                 }else{
+                     if(replace == null) replace = String.valueOf(palavra.subSequence(i-1, i));
+                     else replace = replace + String.valueOf(palavra.subSequence(i-1, i));
                     System.out.println(replace);
-                    palavra = replace;
+                    System.out.println(palavra+"\n");
                  }
             }
             letra = replace.charAt(rand.nextInt(replace.length()));
@@ -48,6 +53,7 @@ public class Powerup {
             letra = palavra.charAt(rand.nextInt(palavra.length()));
             replace = String.valueOf(letra);
         }
+        System.out.println("RETORNO: "+ replace);
         return replace;
     }
     
