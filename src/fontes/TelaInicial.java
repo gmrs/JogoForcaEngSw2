@@ -129,6 +129,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItemSobre = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
+        jMenuCad = new javax.swing.JMenu();
+        jMenuItemCadPalavra = new javax.swing.JMenuItem();
+        jMenuItemCadFrase = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JOGO DA FORCA - Tela de inicio");
@@ -271,6 +274,26 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuBarMenuPrincipal.add(jMenuInf);
 
+        jMenuCad.setText("Cadastro");
+
+        jMenuItemCadPalavra.setText("Palavras");
+        jMenuItemCadPalavra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadPalavraActionPerformed(evt);
+            }
+        });
+        jMenuCad.add(jMenuItemCadPalavra);
+
+        jMenuItemCadFrase.setText("Frases");
+        jMenuItemCadFrase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadFraseActionPerformed(evt);
+            }
+        });
+        jMenuCad.add(jMenuItemCadFrase);
+
+        jMenuBarMenuPrincipal.add(jMenuCad);
+
         setJMenuBar(jMenuBarMenuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -380,6 +403,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButtonJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJogarActionPerformed
         // TODO add your handling code here:
         if(jTextFieldNome.getText().isEmpty() == true) JOptionPane.showMessageDialog(null, "Você não informou seu nome, favor inserir seu nome antes de iniciar a partida.");
+        else if(jTextFieldNome.getText().matches("[a-zA-Z]+") == false) JOptionPane.showMessageDialog(null, "Não utilize numeros, espaços ou caracteres especiais.");
         else if(jRadioButtonFrase.isSelected()==false && jRadioButtonPalavra.isSelected()==false && jRadioButtonAmbos.isSelected()==false) JOptionPane.showMessageDialog(null, "Você não escolheu o modo de jogo, favor escolher o modo de jogo antes de iniciar a partida.");
             else{
             try {
@@ -389,7 +413,7 @@ public class TelaInicial extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }
+        }
     }//GEN-LAST:event_jButtonJogarActionPerformed
 
     private void jTable1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTable1ComponentAdded
@@ -405,6 +429,21 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         modoJogo = 3;
     }//GEN-LAST:event_jRadioButtonAmbosActionPerformed
+
+    private void jMenuItemCadFraseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadFraseActionPerformed
+        // TODO add your handling code here:
+        MenuCadFrase cadFrase = new MenuCadFrase();
+        cadFrase.pack();
+	cadFrase.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadFraseActionPerformed
+
+    private void jMenuItemCadPalavraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadPalavraActionPerformed
+        // TODO add your handling code here:
+        MenuCadPalavra cadPalavra = new MenuCadPalavra();
+        cadPalavra.pack();
+	cadPalavra.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItemCadPalavraActionPerformed
     
     /**
      * @param args the command line arguments
@@ -447,8 +486,11 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelImgForca;
     private javax.swing.JLabel jLabelInfNome;
     private javax.swing.JMenuBar jMenuBarMenuPrincipal;
+    private javax.swing.JMenu jMenuCad;
     private javax.swing.JMenu jMenuInf;
     private javax.swing.JMenuItem jMenuItemAjuda;
+    private javax.swing.JMenuItem jMenuItemCadFrase;
+    private javax.swing.JMenuItem jMenuItemCadPalavra;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JPanel jPanelRanking;

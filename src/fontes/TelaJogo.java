@@ -27,6 +27,7 @@ public class TelaJogo extends javax.swing.JFrame {
     private static Timer cronometro = new Timer();
     private int contador = 0;
     private Boolean intercalar = false;
+    String temp = new String ("");
     
     public TimerTask run()
     {
@@ -316,6 +317,7 @@ public class TelaJogo extends javax.swing.JFrame {
 
     }
     
+
     
     // NOVA PARTIDA
     ControlePartida partida = new ControlePartida();
@@ -397,8 +399,12 @@ public class TelaJogo extends javax.swing.JFrame {
         jMenuInf = new javax.swing.JMenu();
         jMenuItemAjuda = new javax.swing.JMenuItem();
         jMenuItemSobre = new javax.swing.JMenuItem();
+        jMenuItemEncerra = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
+        jMenuCad = new javax.swing.JMenu();
+        jMenuItemCadPalavra = new javax.swing.JMenuItem();
+        jMenuItemCadFrase = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1061,6 +1067,15 @@ public class TelaJogo extends javax.swing.JFrame {
             }
         });
         jMenuInf.add(jMenuItemSobre);
+
+        jMenuItemEncerra.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItemEncerra.setText("Encerrar partida");
+        jMenuItemEncerra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEncerraActionPerformed(evt);
+            }
+        });
+        jMenuInf.add(jMenuItemEncerra);
         jMenuInf.add(jSeparator1);
 
         jMenuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
@@ -1073,6 +1088,26 @@ public class TelaJogo extends javax.swing.JFrame {
         jMenuInf.add(jMenuItemSair);
 
         jMenuBarMenuPrincipal.add(jMenuInf);
+
+        jMenuCad.setText("Cadastro");
+
+        jMenuItemCadPalavra.setText("Palavras");
+        jMenuItemCadPalavra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadPalavraActionPerformed(evt);
+            }
+        });
+        jMenuCad.add(jMenuItemCadPalavra);
+
+        jMenuItemCadFrase.setText("Frases");
+        jMenuItemCadFrase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadFraseActionPerformed(evt);
+            }
+        });
+        jMenuCad.add(jMenuItemCadFrase);
+
+        jMenuBarMenuPrincipal.add(jMenuCad);
 
         setJMenuBar(jMenuBarMenuPrincipal);
 
@@ -1455,6 +1490,28 @@ public class TelaJogo extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(null, "Você ainda não possui o PowerUp VIDA EXTRA, para adiquirir complete a palavra ou frase sem errar nenhum letra.");
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jMenuItemCadFraseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadFraseActionPerformed
+        // TODO add your handling code here:
+        MenuCadFrase cadFrase = new MenuCadFrase();
+        cadFrase.pack();
+	cadFrase.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadFraseActionPerformed
+
+    private void jMenuItemCadPalavraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadPalavraActionPerformed
+        // TODO add your handling code here:
+        MenuCadPalavra cadPalavra = new MenuCadPalavra();
+        cadPalavra.pack();
+	cadPalavra.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadPalavraActionPerformed
+
+    private void jMenuItemEncerraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEncerraActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        TelaInicial inicio = new TelaInicial();
+        inicio.pack();
+	inicio.setVisible(true);
+    }//GEN-LAST:event_jMenuItemEncerraActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1491,8 +1548,12 @@ public class TelaJogo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTentativas;
     private javax.swing.JLabel jLabelTentativasRestantes;
     private javax.swing.JMenuBar jMenuBarMenuPrincipal;
+    private javax.swing.JMenu jMenuCad;
     private javax.swing.JMenu jMenuInf;
     private javax.swing.JMenuItem jMenuItemAjuda;
+    private javax.swing.JMenuItem jMenuItemCadFrase;
+    private javax.swing.JMenuItem jMenuItemCadPalavra;
+    private javax.swing.JMenuItem jMenuItemEncerra;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JPanel jPanel1;
