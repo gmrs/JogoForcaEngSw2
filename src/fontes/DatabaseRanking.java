@@ -37,7 +37,7 @@ public class DatabaseRanking
     public static void SalvarRanking(String nome, int pontuacao) throws SQLException
     {
         Database db = new Database();
-        String sql = "insert into ranking (nome, datahora, pontuacao) values ('" + nome.replaceAll("'", "") + "',CURRENT_TIMESTAMP,+" + pontuacao + ")";
+        String sql = "insert into ranking (nome, datahora, pontuacao) values ('" + nome.replaceAll("'", "") + "',datetime('now','localtime'),+" + pontuacao + ")";
         try
         {
             Connection conn = db.c;

@@ -5,6 +5,9 @@
  */
 package fontes;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -584,7 +587,12 @@ public class MenuCadFrase extends javax.swing.JFrame {
                 }
                 else{
                     palavra = user_word.getText();
-                    categoria = jComboBox1.getName();
+                    categoria = jComboBox1.getSelectedItem().toString();
+                    try {
+                        DatabasePalavra.addNew("F", palavra, categoria);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MenuCadFrase.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     dispose();
                     JOptionPane.showMessageDialog(null, "Frase cadastrada: "+palavra+".", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 }

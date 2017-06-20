@@ -5,6 +5,9 @@
  */
 package fontes;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -565,10 +568,15 @@ public class MenuCadPalavra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe ao menos 2 caracteres!", "Aviso", JOptionPane.ERROR_MESSAGE);    
         }
         else{
-            palavra = user_word.getText();
-            categoria = jComboBox1.getName();
-            dispose();
-            JOptionPane.showMessageDialog(null, "Palavra cadastrada: "+palavra+".", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                palavra = user_word.getText();
+                categoria = jComboBox1.getSelectedItem().toString();
+                DatabasePalavra.addNew("P", palavra, categoria);
+                dispose();
+                JOptionPane.showMessageDialog(null, "Palavra cadastrada: "+palavra+".", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuCadPalavra.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

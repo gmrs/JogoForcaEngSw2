@@ -209,7 +209,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonJogar.setBorder(null);
         jButtonJogar.setBorderPainted(false);
         jButtonJogar.setContentAreaFilled(false);
-        jButtonJogar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonJogar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonJogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonJogarActionPerformed(evt);
